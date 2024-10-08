@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+
 import { SideNavigation } from "@/app/_components/SideNavigation";
+// import { ItemProvide } from "./lib/ItemContext";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -29,10 +31,12 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <section className="grid h-screen grid-cols-[18rem_3.5fr] grid-rows-[auto_1fr] gap-4">
+        {/* <ItemProvide> */}
+        <section className="grid h-screen grid-cols-[16rem_3.5fr] grid-rows-[auto_1fr] gap-4">
           <SideNavigation />
           <div>{children}</div>
         </section>
+        {/* </ItemProvide> */}
       </body>
     </html>
   );
