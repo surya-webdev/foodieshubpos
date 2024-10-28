@@ -1,34 +1,42 @@
 "use client";
 
-import { useContext, useEffect, useState } from "react";
-import { createContext } from "react";
+import React, { createContext, useContext, useState } from "react";
+
 import { itemTypes } from "../types";
 
-const ItemContext = createContext();
+interface itemDefault {
+  isItem: itemTypes[];
+  addItem: (item: itemTypes) => void;
+}
+
+const defaultContextValue: itemDefault = {
+  isItem: [],
+  addItem: () => {},
+};
+
+const itemContext = createContext<itemDefault>(defaultContextValue);
 
 export function ItemProvide({ children }: { children: React.ReactNode }) {
-  // //
-  const [selectItem, setSelectItem] = useState(() => {
-    if (typeof window !== undefined) {
-      const data = localStorage.getItem("menu");
-      return data ? JSON.parse(data) : [];
-    }
-    return [];
-  });
+  const [isItem, setIsItem] = useState<itemTypes[]>([]);
 
-  useEffect(() => {
-    localStorage.setItem("menu", JSON.stringify(selectItem));
-  }, [selectItem]);
-  // localStorage.setItem("menu", JSON.stringify(selectItem));
-  // console.log(data);
+  function addItem(item: itemTypes) {
+    if (!item) return;
 
-  const addItems = (item: itemTypes) => setSelectItem([...selectItem, item]);
+    setIsItem((prevItem) => [...prevItem, item]);
+  }
 
   return (
-    <ItemContext.Provider value={{ addItems, selectItem }}>
+    <itemContext.Provider value={{ isItem, addItem }}>
       {children}
-    </ItemContext.Provider>
+    </itemContext.Provider>
   );
 }
 
-export const useItems = () => useContext(ItemContext);
+export const useItem = () => {
+  const context = useContext(itemContext);
+
+  if (context === undefined)
+    throw new Error("Context use in outside of the provider");
+
+  return context;
+};

@@ -4,7 +4,7 @@ import prisma from "./db";
 
 export async function getStarter() {
   try {
-    const data = await prisma.starters.findMany({});
+    const data = await prisma.starters.findMany();
 
     if (!data) throw new Error("NO DATA");
 

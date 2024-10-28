@@ -4,20 +4,22 @@ import { MenuLayout } from "@/app/_components/MenuLayout";
 import { getStarter } from "@/app/lib/actions";
 import { itemTypes } from "@/app/types";
 
-export default async function Home() {
+export default async function Page() {
   const res = await getStarter();
-  const vegData = res.filter((item: itemTypes) => item.type === "veg");
-  const nonVegData = res.filter((item: itemTypes) => item.type === "nonveg");
 
-  console.log(vegData);
+  // console.log(res);
+  const vegData = res?.filter((item: itemTypes) => item.type === "veg");
+  const nonVegData = res?.filter(
+    (item: itemTypes) => item.type.toLowerCase() === "non-veg",
+  );
 
   return (
-    <aside className="py-2">
+    <aside className="px-4 py-2">
       <div className="flex flex-col">
         <div className="my-2 text-xl font-bold">
           <h2 className="text-xl font-bold">VEG</h2>
         </div>
-        <div className="flex">
+        <div className="grid grid-cols-2 gap-2 md:grid-cols-3">
           {vegData?.map((item: itemTypes) => (
             <MenuLayout item={item} key={item.id} />
           ))}
@@ -27,7 +29,7 @@ export default async function Home() {
         <div className="my-2 text-xl font-bold">
           <p>Non VEG</p>
         </div>
-        <div className="flex gap-6">
+        <div className="grid grid-cols-2 gap-2 md:grid-cols-3">
           {nonVegData?.map((item: itemTypes) => (
             <MenuLayout item={item} key={item.id} />
           ))}

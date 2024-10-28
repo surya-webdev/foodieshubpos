@@ -1,47 +1,59 @@
 "use client";
 
 import axios from "axios";
-import { useItems } from "../lib/ItemContext";
+import { useItem } from "../lib/ItemContext";
 import { itemTypes } from "../types";
 
 export function Billing() {
-  const { selectItem } = useItems();
+  const { isItem } = useItem();
+
+  const total = isItem
+    ?.map((item: itemTypes) => item.price)
+    ?.reduce((acc: number, curr: number) => acc + curr, 0);
 
   async function handler() {
-    if (!selectItem || !total) return;
+    if (isItem.length === 0 && !total) {
+      return;
+    }
 
     try {
       const res = await axios.post("/api/food/pos", {
-        items: selectItem,
+        items: isItem,
         totalPrice: total,
       });
-
-      if (res) {
-        return localStorage.setItem("menu", "");
-      } else {
-        return "error";
-      }
+      return res;
+      return;
     } catch (error) {
-      console.error(error);
+      console.error("Error Message", error);
+      // throw new Error("Please provide a valid types");
     }
   }
-  const total = selectItem
-    ?.map((item: itemTypes) => item.price)
-    ?.reduce((acc: number, curr: number) => acc + curr, 0);
+
   return (
-    <>
-      {selectItem?.map((item: itemTypes) => (
-        <div key={item.id + Math.random(5)}>
+    <div className="flex flex-col font-extrabold">
+      <div className="flex justify-between">
+        <p>Food</p>
+        <p>Quantity</p>
+        <p>Price</p>
+      </div>
+      {isItem?.map((item: itemTypes) => (
+        <div key={item.id + Math.random()}>
           <p>{item.name}</p>
+
           <p>{item.price}</p>
         </div>
       ))}
-
-      <p>{total}</p>
-
-      <button className="bg-white p-6" onClick={handler}>
-        print
-      </button>
-    </>
+      <div>
+        <p>{total}</p>
+      </div>
+      <div>
+        <button
+          onClick={() => handler()}
+          className="rounded-lg bg-[#d6651f] px-8 text-lg font-bold text-black"
+        >
+          print
+        </button>
+      </div>
+    </div>
   );
 }

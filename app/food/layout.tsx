@@ -1,4 +1,4 @@
-// import { Billing } from "../_components/Billing";
+import { Billing } from "../_components/Billing";
 
 export default function RootLayout({
   children,
@@ -7,9 +7,11 @@ export default function RootLayout({
 }) {
   return (
     <>
-      <section className="grid grid-cols-[2.5fr_1.5fr] grid-rows-[auto_1fr]">
-        <>{children}</>
-        <div className="h-screen bg-slate-400">{/* <Billing /> */}</div>
+      <section className="grid h-screen grid-cols-[2.5fr_1fr]">
+        <div className="flex flex-col">{children}</div>
+        <div className="h-screen min-h-[100dvh] bg-slate-100 px-4 py-10">
+          <Billing />
+        </div>
       </section>
     </>
   );

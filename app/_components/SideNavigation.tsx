@@ -13,7 +13,7 @@ export function SideNavigation() {
   const [isOpen, setIsOpen] = useState(true);
 
   return (
-    <aside className="row-span-full flex h-full flex-col rounded-lg border border-[#dcdcdc] bg-[#ffffff] px-2 py-10">
+    <aside className="fixed flex h-screen w-[16rem] flex-col rounded-lg border border-[#dcdcdc] bg-[#ffffff] px-2 py-10">
       <div className="flex items-center justify-center">
         <Image src="/logo.png" width={100} height={100} alt="logo" />
         <h2 className="blog text-lg font-bold">Foodie&apos;s Hub</h2>
