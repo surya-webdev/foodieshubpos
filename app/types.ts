@@ -1,7 +1,8 @@
 export type itemTypes = {
-  type: string;
   id: string;
+  type: string;
   typedish: string;
   price: number;
   name: string;
+  quantity: number;
 };

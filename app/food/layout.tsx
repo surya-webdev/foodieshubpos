@@ -7,11 +7,9 @@ export default function RootLayout({
 }) {
   return (
     <>
-      <section className="grid h-screen grid-cols-[2.5fr_1fr]">
+      <section className="grid h-screen grid-cols-[2.5fr_1.5fr]">
         <div className="flex flex-col">{children}</div>
-        <div className="h-screen min-h-[100dvh] bg-slate-100 px-4 py-10">
-          <Billing />
-        </div>
+        <Billing />
       </section>
     </>
   );

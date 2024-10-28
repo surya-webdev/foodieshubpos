@@ -1,15 +1,17 @@
 // "use client";
 
 import { MenuLayout } from "@/app/_components/MenuLayout";
-import { getStarter } from "@/app/lib/actions";
+import { getMainCourse } from "@/app/lib/actions";
 import { itemTypes } from "@/app/types";
 
 export default async function Page() {
-  const res = await getStarter();
+  const res = await getMainCourse();
+  console.log(res);
 
-  // console.log(res);
   const vegData = res?.filter((item: itemTypes) => item.type === "veg");
-  const nonVegData = res?.filter((item: itemTypes) => item.type === "nonveg");
+  const nonVegData = res?.filter(
+    (item: itemTypes) => item.type.toLowerCase() === "nonveg",
+  );
 
   return (
     <aside className="px-4 py-2">
@@ -27,7 +29,7 @@ export default async function Page() {
         <div className="my-2 text-xl font-bold">
           <p>Non VEG</p>
         </div>
-        <div className="flex gap-6">
+        <div className="grid grid-cols-2 gap-2 md:grid-cols-3">
           {nonVegData?.map((item: itemTypes) => (
             <MenuLayout item={item} key={item.id} />
           ))}

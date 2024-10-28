@@ -1,13 +1,14 @@
 // "use client";
 
 import { MenuLayout } from "@/app/_components/MenuLayout";
-import { getStarter } from "@/app/lib/actions";
+import { getSoups } from "@/app/lib/actions";
 import { itemTypes } from "@/app/types";
 
 export default async function Page() {
-  const res = await getStarter();
+  const res = await getSoups();
 
-  // console.log(res);
+  console.log(res);
+
   const vegData = res?.filter((item: itemTypes) => item.type === "veg");
   const nonVegData = res?.filter(
     (item: itemTypes) => item.type.toLowerCase() === "nonveg",

@@ -7,11 +7,13 @@ import { itemTypes } from "../types";
 interface itemDefault {
   isItem: itemTypes[];
   addItem: (item: itemTypes) => void;
+  removeItem: (id: string) => void;
 }
 
 const defaultContextValue: itemDefault = {
   isItem: [],
   addItem: () => {},
+  removeItem: () => {},
 };
 
 const itemContext = createContext<itemDefault>(defaultContextValue);
@@ -25,8 +27,12 @@ export function ItemProvide({ children }: { children: React.ReactNode }) {
     setIsItem((prevItem) => [...prevItem, item]);
   }
 
+  function removeItem(id: string) {
+    setIsItem(isItem.filter((isItem) => isItem.id !== id));
+  }
+
   return (
-    <itemContext.Provider value={{ isItem, addItem }}>
+    <itemContext.Provider value={{ isItem, addItem, removeItem }}>
       {children}
     </itemContext.Provider>
   );

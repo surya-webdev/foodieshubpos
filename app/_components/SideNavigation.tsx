@@ -8,6 +8,7 @@ import { FaMoneyBillTrendUp } from "react-icons/fa6";
 import { IoIosArrowDropdownCircle } from "react-icons/io";
 import { MdStart } from "react-icons/md";
 import { GiHotSpices } from "react-icons/gi";
+import { TbSoupFilled } from "react-icons/tb";
 
 export function SideNavigation() {
   const [isOpen, setIsOpen] = useState(true);
@@ -20,6 +21,7 @@ export function SideNavigation() {
       </div>
 
       <ul className="flex flex-col gap-2">
+        {/*  */}
         <li className="rounded-lg px-4 py-2 text-[1.4rem]">
           <Link
             onClick={() => setIsOpen(() => !isOpen)}
@@ -33,6 +35,21 @@ export function SideNavigation() {
               <span className="block">foods</span>
             </div>
             <IoIosArrowDropdownCircle className="text-lg" />
+          </Link>
+        </li>
+
+        <li className="rounded-lg px-4 py-2 text-[1.2rem]">
+          <Link
+            onClick={() => setIsOpen(() => !isOpen)}
+            className="flex items-center justify-between gap-4 rounded-lg px-2 py-1 text-[#000000] transition-all hover:bg-slate-300"
+            href={"/food/soups"}
+          >
+            <div className="flex items-center justify-center gap-2">
+              <span className="block">
+                <TbSoupFilled />
+              </span>
+              <span className="block font-medium">Soups</span>
+            </div>
           </Link>
         </li>
 

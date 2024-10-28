@@ -13,3 +13,25 @@ export async function getStarter() {
     console.error("error", err);
   }
 }
+
+export async function getMainCourse() {
+  try {
+    const data = await prisma.maincourse.findMany();
+
+    if (!data) throw new Error("NO DATA");
+    return data;
+  } catch (err) {
+    console.error("error", err);
+  }
+}
+
+export async function getSoups() {
+  try {
+    const data = await prisma.soups.findMany();
+
+    if (!data) throw new Error("NO DATA");
+    return data;
+  } catch (err) {
+    console.error("error", err);
+  }
+}

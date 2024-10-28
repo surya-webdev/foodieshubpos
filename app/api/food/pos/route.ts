@@ -5,7 +5,6 @@ import { itemTypes } from "@/app/types";
 const printer = new ThermalPrinter({
   type: PrinterTypes.EPSON,
   width: 48,
-  // margin: "0 0 0 0",
   interface: "//localhost/POS-80-Series1",
   options: {
     timeout: 1000,
