@@ -97,14 +97,10 @@ export async function POST(req: NextRequest) {
   if (items.length === 0 && !totalPrice) return;
 
   try {
-    // prin ter.
-    // printer.setTextSize(1, 1);
     printer.alignRight();
-    printer.println("Oct 29 2024");
+    printer.println(`${new Date()}`);
     printer.println("02:00pm");
 
-    // printer.setTextSize(2, 2);
-    // printer.buffer.write([0x1b, 0x21, 0x01]); // Standard font size
     printer.getWidth();
     printer.setTextDoubleWidth();
     printer.setTextDoubleHeight();
@@ -113,7 +109,6 @@ export async function POST(req: NextRequest) {
     printer.bold(true);
     printer.println("FOODIE's Hub");
 
-    // printer.setTextSize(1, 1);
     printer.setTextNormal();
     printer.tableCustom([
       // Prints table with custom settings (text, align, width, cols, bold)
@@ -121,14 +116,14 @@ export async function POST(req: NextRequest) {
       { text: "Quantity", align: "CENTER", bold: true },
       { text: "Price", align: "RIGHT" },
     ]);
-    // printer.print("       ");
+
     {
       items.map((item: () => void) =>
         printer.tableCustom([
           { text: item.name, align: "LEFT", bold: true },
           // { text: " space", align: "LEFT" },
           {
-            text: String(item?.quantity ? item.quantity : "1"),
+            text: String(item.quantity ? item.quantity : "1"),
             align: "CENTER",
             bold: true,
           },
@@ -154,11 +149,13 @@ export async function POST(req: NextRequest) {
     printer.partialCut();
     // printer.getBuffer();
     // printer.clear();
-    await printer.execute();
 
-    return NextResponse.json({
-      message: "SUCESS",
-    });
+    const res = await printer.execute();
+    if (res.toLowerCase().split(" ").join("") === "printdone") {
+      return NextResponse.json({
+        message: "SUCESS",
+      });
+    }
   } catch (error) {
     console.error("error", error);
     throw new Error("PRINTER EXCUTION PROBLEM");

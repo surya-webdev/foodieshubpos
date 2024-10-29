@@ -6,7 +6,7 @@ import { SignJWT } from "jose";
 
 export async function POST(req: NextRequest) {
   const data = await req.json();
-  console.log(data);
+
   if (!data.userName || !data.password)
     return NextResponse.json({
       status: 411,

@@ -1,8 +1,6 @@
+import { jwtVerify } from "jose";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
-import { jwtVerify } from "jose";
-import { cookies } from "next/headers";
-import { url } from "inspector";
 
 const JWT_SECRET = new TextEncoder().encode(process.env.JWT_SECRET);
 export async function middleware(request: NextRequest) {
@@ -19,7 +17,7 @@ export async function middleware(request: NextRequest) {
       if (!payload.id) {
         throw new Error("Not autheticated");
       } else {
-        const { id } = payload;
+        // const { id } = payload;
 
         return NextResponse.next();
       }
