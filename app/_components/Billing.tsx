@@ -8,7 +8,7 @@ export function Billing() {
   const { isItem, removeItem } = useItem();
   // console.log(isItem);
   const total = isItem
-    ?.map((item: itemTypes) => item.price)
+    ?.map((item: itemTypes) => item.price * (item.quantity ? item.quantity : 1))
     ?.reduce((acc: number, curr: number) => acc + curr, 0);
 
   async function handler() {

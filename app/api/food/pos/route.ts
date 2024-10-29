@@ -100,8 +100,8 @@ export async function POST(req: NextRequest) {
     // prin ter.
     // printer.setTextSize(1, 1);
     printer.alignRight();
-    printer.println("Oct 26 2024");
-    printer.println("08:30pm");
+    printer.println("Oct 29 2024");
+    printer.println("02:00pm");
 
     // printer.setTextSize(2, 2);
     // printer.buffer.write([0x1b, 0x21, 0x01]); // Standard font size
