@@ -46,3 +46,12 @@ model user {
   password   String?
   id         String   @id @unique @db.Uuid
 }
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model dashboard {
+  id         String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  created_at DateTime  @default(now()) @db.Timestamptz(6)
+  day        DateTime? @default(now()) @db.Date
+  sale       Float?    @db.Real
+  typedish   Json?     @default("{}")
+}

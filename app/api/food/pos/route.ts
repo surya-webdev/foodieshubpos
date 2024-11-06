@@ -149,6 +149,10 @@ export async function POST(req: NextRequest) {
     printer.partialCut();
     // printer.getBuffer();
     // printer.clear();
+    // dd call and registery
+    // {
+    //   typeDish:{}
+    // }
 
     const res = await printer.execute();
     if (res.toLowerCase().split(" ").join("") === "printdone") {

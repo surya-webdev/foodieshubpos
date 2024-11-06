@@ -29,7 +29,7 @@ export async function POST(req: NextRequest) {
         .setProtectedHeader({
           alg: "HS256",
         })
-        .setExpirationTime("365Days")
+        .setExpirationTime("7d")
         .sign(JWT_SECRET);
 
       const cookieStore = await cookies();
@@ -40,6 +40,7 @@ export async function POST(req: NextRequest) {
         status: 200,
         message: "success",
       });
+      //
     } catch (error) {
       console.error("ERROR MESSAGE", error);
       return NextResponse.json({ message: "Excution failed" });

@@ -7,39 +7,42 @@ import { useState } from "react";
 export default function Signin() {
   const router = useRouter();
 
+  const [isLoading, setIsLoading] = useState(false);
   const [user, setUser] = useState<string>("vicky@gmail.com");
   const [password, setPassword] = useState<string>("mypassword");
 
   async function handler(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (!user && !password) return;
+    try {
+      setIsLoading(true);
 
-    const res = await axios.post("/api/auth", {
-      userName: user,
-      password,
-    });
+      const res = await axios.post("/api/auth", {
+        userName: user,
+        password,
+      });
 
-    console.log(res);
-
-    if (res.data.message === "success") return router.push("food/starters");
+      if (res.data.message === "success") {
+        return router.push("food/starters");
+      } else {
+        return;
+      }
+    } catch (error) {
+      console.error("error message", error);
+    } finally {
+      setIsLoading(false);
+    }
   }
   return (
     <section className="flex flex-col items-center justify-center py-[10%]">
-      <div className="flex w-[30rem] flex-col items-center justify-center py-4">
-        {/* <h1 className="py-2 text-2xl font-bold">Login into your account</h1>
-        <p>
-          Don&apos;t have an account?
-          <Link className="font-semibold underline" href="/signup">
-            Login
-          </Link>
-        </p> */}
-      </div>
+      <div className="flex w-[30rem] flex-col items-center justify-center py-4"></div>
       <div className="w-[20rem]">
         <form onSubmit={(e) => handler(e)} className="flex w-full flex-col">
           <label className="py-2 text-lg font-semibold" htmlFor="name">
             Email
           </label>
           <input
+            disabled={isLoading}
             value={user}
             onChange={(e) => setUser(e.target.value)}
             type="email"
@@ -52,6 +55,7 @@ export default function Signin() {
             Password
           </label>
           <input
+            disabled={isLoading}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             type="password"
@@ -61,10 +65,11 @@ export default function Signin() {
             required
           />
           <button
+            disabled={isLoading}
             type="submit"
-            className="my-4 rounded-md bg-black py-1 text-lg font-semibold text-white"
+            className="my-4 rounded-md bg-[#d6651f] py-1 text-lg font-semibold text-white"
           >
-            Login
+            {isLoading ? "processing" : "Submit"}
           </button>
         </form>
       </div>

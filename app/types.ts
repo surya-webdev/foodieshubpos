@@ -6,3 +6,11 @@ export type itemTypes = {
   name: string;
   quantity: number;
 };
+
+export interface daySale {
+  id: string;
+  created_at: object;
+  day: object;
+  sale: number;
+  typedish: object;
+}
