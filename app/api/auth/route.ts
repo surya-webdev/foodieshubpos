@@ -11,6 +11,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({
       status: 411,
       message: "Please provide the details",
+      valid: "empty",
     });
 
   const response = await prisma.user.findUnique({
@@ -21,7 +22,10 @@ export async function POST(req: NextRequest) {
   });
 
   if (!response) {
-    return NextResponse.json({ message: "Enter the correct credenitails" });
+    return NextResponse.json({
+      message: "Enter the correct credenitails",
+      authorized: false,
+    });
   } else {
     const JWT_SECRET = new TextEncoder().encode(process.env.JWT_SECRET);
     try {
@@ -34,12 +38,19 @@ export async function POST(req: NextRequest) {
 
       const cookieStore = await cookies();
 
-      cookieStore.set("pos-token", token);
+      cookieStore.set("pos-token", token, {
+        maxAge: 604800, // 7 days in seconds
+        path: "/",
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "strict",
+      });
 
       return NextResponse.json({
         status: 200,
         message: "success",
       });
+
       //
     } catch (error) {
       console.error("ERROR MESSAGE", error);

@@ -3,17 +3,21 @@
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 
 export default function Signin() {
+  //
   const router = useRouter();
-
   const [isLoading, setIsLoading] = useState(false);
   const [user, setUser] = useState<string>("vicky@gmail.com");
   const [password, setPassword] = useState<string>("mypassword");
 
   async function handler(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+
     if (!user && !password) return;
+
     try {
       setIsLoading(true);
 
@@ -22,7 +26,32 @@ export default function Signin() {
         password,
       });
 
+      if (res.data.authorized === false) {
+        return toast.error(
+          "User is not exist , please check the email and password",
+          {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            theme: "light",
+          },
+        );
+      }
+
       if (res.data.message === "success") {
+        toast.success("You've Logged in Sucessfully!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
         return router.push("food/starters");
       } else {
         return;
@@ -33,6 +62,7 @@ export default function Signin() {
       setIsLoading(false);
     }
   }
+
   return (
     <section className="flex flex-col items-center justify-center py-[10%]">
       <div className="flex w-[30rem] flex-col items-center justify-center py-4"></div>

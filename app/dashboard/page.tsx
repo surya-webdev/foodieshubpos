@@ -12,6 +12,7 @@ import {
 
 import { getThirtyDaySales } from "../lib/actions";
 import { daySale } from "../types";
+import { Loader } from "../_components/Loader";
 
 // const data = [{ name: "Oct 1", uv: 400, pv: 2400, amt: 2400 }];
 
@@ -46,7 +47,7 @@ export default function Page() {
   }, []);
 
   if (isLoading) {
-    return <p>...Loading</p>;
+    return <Loader />;
   }
 
   console.log(isData);
