@@ -11,7 +11,7 @@ export default function RootLayout({
       <div>
         <SideNavigation></SideNavigation>
       </div>
-      <div>
+      <div className="flex flex-col gap-10 p-10">
         <Sale></Sale>
         {children}
       </div>

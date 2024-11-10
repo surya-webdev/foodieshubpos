@@ -17,8 +17,6 @@ export async function middleware(request: NextRequest) {
       if (!payload.id) {
         throw new Error("Not autheticated");
       } else {
-        // const { id } = payload;
-
         return NextResponse.next();
       }
       //

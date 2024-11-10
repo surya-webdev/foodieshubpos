@@ -50,15 +50,13 @@ export default function Page() {
     return <Loader />;
   }
 
-  console.log(isData);
-
   return (
     <>
-      <div className="py- flex flex-col gap-10 px-10">
-        <div>
+      <div className="py- flex flex-col gap-10">
+        <div className="h-[10rem] w-full">
           <LineChart
-            width={600}
-            height={300}
+            width={1000}
+            height={500}
             data={isData}
             margin={{ top: 5, right: 20, bottom: 5, left: 0 }}
           >
