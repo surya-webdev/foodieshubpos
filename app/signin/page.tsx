@@ -41,6 +41,18 @@ export default function Signin() {
         );
       }
 
+      if (res.data.message === "failed") {
+        return toast.error("Server Error", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          theme: "light",
+        });
+      }
+
       if (res.data.message === "success") {
         toast.success("You've Logged in Sucessfully!", {
           position: "top-right",

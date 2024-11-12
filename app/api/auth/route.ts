@@ -33,13 +33,13 @@ export async function POST(req: NextRequest) {
         .setProtectedHeader({
           alg: "HS256",
         })
-        .setExpirationTime("7d")
+        .setExpirationTime("30d")
         .sign(JWT_SECRET);
 
       const cookieStore = await cookies();
 
       cookieStore.set("pos-token", token, {
-        maxAge: 604800, // 7 days in seconds
+        maxAge: 2419200, // 7 days in seconds
         path: "/",
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
@@ -50,11 +50,9 @@ export async function POST(req: NextRequest) {
         status: 200,
         message: "success",
       });
-
-      //
     } catch (error) {
       console.error("ERROR MESSAGE", error);
-      return NextResponse.json({ message: "Excution failed" });
+      return NextResponse.json({ message: "failed" });
     }
   }
 }

@@ -5,7 +5,6 @@ import {
   PrinterTypes,
   ThermalPrinter,
 } from "node-thermal-printer";
-import prisma from "@/app/lib/db";
 import { itemTypes } from "@/app/types";
 
 const printer = new ThermalPrinter({
@@ -21,107 +20,62 @@ const printer = new ThermalPrinter({
   },
 });
 
-const rupees = "Rs.";
-
 export async function POST(req: NextRequest) {
-  const { items, totalPrice } = await req.json();
+  const { items } = await req.json();
 
-  if (items.length === 0 || !totalPrice) return;
+  if (items.length === 0) return;
+
   const today = new Date();
   const formattedDate = today.toISOString().split("T")[0];
   const hour = today.getHours();
   const minutes = today.getMinutes();
   const seconds = today.getSeconds();
+
   try {
     printer.setTypeFontB();
+    printer.bold(true);
+    printer.alignCenter();
+
+    printer.println("KITCHEN ORDER");
     printer.alignRight();
     printer.println(formattedDate);
     printer.println(
       `${hour}:${minutes < 9 ? "0" + minutes : minutes}:${seconds < 9 ? "0" + seconds : seconds}`,
     );
-    printer.newLine();
-    printer.newLine();
-    //
-    printer.getWidth();
-    printer.setTextDoubleWidth();
-    printer.setTextDoubleHeight();
-    printer.setTextQuadArea();
-    printer.alignCenter();
-    printer.bold(true);
-    printer.println("FOODIE's Hub");
-    // Draws a line
-    printer.newLine();
-    printer.newLine();
-
     printer.setTextNormal();
     printer.tableCustom([
-      { text: "Food", align: "LEFT" },
-      { text: "Quantity", align: "CENTER", bold: true },
-      { text: "Price", align: "RIGHT" },
+      { text: "Food Item", align: "LEFT", bold: true },
+      { text: "Quantity", align: "RIGHT", bold: true },
     ]);
     printer.newLine();
-
     {
       items.map((item: itemTypes) => {
         return (
           printer.tableCustom([
             { text: item.name, align: "LEFT", bold: true },
-            // { text: " space", align: "LEFT" },
             {
               text: String(item.quantity ? item.quantity : "1"),
-              align: "CENTER",
+              align: "RIGHT",
               bold: true,
             },
-            {
-              text: String(`${rupees}${item.price}`),
-              align: "RIGHT",
-            },
           ]),
-          printer.newLine()
+          printer.drawLine("-")
         );
       });
     }
-    printer.underline(true);
-    printer.drawLine("-");
-    printer.setTextDoubleWidth();
-    printer.setTextDoubleHeight();
 
-    printer.setTextQuadArea();
-    printer.alignRight();
-    printer.bold(true);
-    printer.println("TOTAL");
     printer.newLine();
-    printer.println(`${rupees}${totalPrice}`);
-    printer.newLine();
-
-    printer.setTextDoubleWidth();
-    printer.setTextDoubleHeight();
-    printer.alignCenter();
-    printer.bold(true);
-    printer.println("Thanks For Coming.");
-    printer.println("Please Visit Again!");
-    printer.newLine();
-    printer.printQR("https://maps.app.goo.gl/wfUG7B2J2bXvW4KL6");
-    printer.partialCut();
-
-    await prisma.dashboard.create({
-      data: {
-        sale: totalPrice,
-      },
-    });
+    printer.cut();
 
     const res = await printer.execute();
 
     if (res.toLowerCase().split(" ").join("") === "printdone") {
       return NextResponse.json({
-        message: "success",
+        message: "SUCESS",
       });
     }
   } catch (error) {
     console.error("error", error);
-    return NextResponse.json({
-      message: "failed",
-      error: "PRINTER EXCUTION PROBLEM",
-    });
+    throw new Error("PRINTER EXCUTION PROBLEM");
   }
 }
