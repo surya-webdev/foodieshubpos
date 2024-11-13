@@ -4,7 +4,7 @@ import { GiEmptyHourglass } from "react-icons/gi";
 import { TiDelete } from "react-icons/ti";
 
 import axios from "axios";
-import { useItem } from "../lib/ItemContext";
+import { useItem } from "../lib/ItemContexts";
 import { itemTypes } from "../types";
 
 export function Billing() {
