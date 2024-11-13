@@ -3,7 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 
 import { ToastContainer } from "react-toastify";
-import { ItemProvide } from "./lib/ItemContext"; //  eslint-disable-line
+import { ItemProvide } from "../app/lib/ItemContext";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",

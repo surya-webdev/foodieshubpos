@@ -6,15 +6,17 @@ import { SiMoneygram } from "react-icons/si";
 import { FaMoneyBills } from "react-icons/fa6";
 
 export async function Sale() {
-  const responseTotalSale: Promise<daySale[]> = await getTotalSale();
-  const responseTodaySale: Promise<daySale[]> = await getSale();
+  // @ts-ignore
+  const responseTotalSale: any = await getTotalSale();
+  // @ts-ignore
+  const responseTodaySale: any = await getSale();
 
   const daySale = responseTodaySale
-    ?.map((item) => item?.sale)
+    .map((item: daySale) => item?.sale)
     .reduce((cur: number, acc: number) => acc + cur, 0);
 
   const totalSale = responseTotalSale
-    ?.map((item) => item?.sale)
+    .map((item: daySale) => item?.sale)
     .reduce((cur: number, acc: number) => acc + cur, 0);
 
   if (daySale < 0 || totalSale < 0) return <p className="text-3xl">No Data</p>;

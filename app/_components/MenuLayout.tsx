@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useItem } from "../lib/ItemContext";
+import { useItem } from "../lib/itemContext";
 import { itemTypes } from "../types";
 
 export function MenuLayout(props: { item: itemTypes }) {
