@@ -24,10 +24,13 @@ export function Billing() {
     }
 
     try {
-      const res = await axios.post("/api/food/pos", {
-        items: isItem,
-        totalPrice: total,
-      });
+      const res = await axios.post(
+        "https://foodieshubpos.vercel.app/api/food/pos",
+        {
+          items: isItem,
+          totalPrice: total,
+        },
+      );
 
       if (res.data.message === "success") {
         return reset();
@@ -43,9 +46,12 @@ export function Billing() {
     }
 
     try {
-      const res = await axios.post("/api/food/kitchen", {
-        items: isItem,
-      });
+      const res = await axios.post(
+        "https://foodieshubpos.vercel.app/api/food/kitchen",
+        {
+          items: isItem,
+        },
+      );
       return res;
     } catch (error) {
       console.error("Error Message", error);
