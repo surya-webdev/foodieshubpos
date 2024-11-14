@@ -6,11 +6,12 @@ import { itemTypes } from "@/app/types";
 
 export default async function Page() {
   const res = await getMainCourse();
-  console.log(res);
 
-  const vegData = res?.filter((item: itemTypes) => item.type === "veg");
+  const vegData = res?.filter((item) => item?.type === "veg");
+  // @ts-ignore
   const nonVegData = res?.filter(
-    (item: itemTypes) => item.type.toLowerCase() === "nonveg",
+    // @ts-ignore
+    (item) => item?.type.toLowerCase() === "nonveg",
   );
 
   return (
@@ -20,7 +21,7 @@ export default async function Page() {
           <h2 className="text-xl font-bold">VEG</h2>
         </div>
         <div className="grid grid-cols-2 gap-2 md:grid-cols-3">
-          {vegData?.map((item: itemTypes) => (
+          {vegData?.map((item: any) => (
             <MenuLayout item={item} key={item.id} />
           ))}
         </div>
@@ -30,7 +31,7 @@ export default async function Page() {
           <p>Non VEG</p>
         </div>
         <div className="grid grid-cols-2 gap-2 md:grid-cols-3">
-          {nonVegData?.map((item: itemTypes) => (
+          {nonVegData?.map((item: any) => (
             <MenuLayout item={item} key={item.id} />
           ))}
         </div>

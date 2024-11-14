@@ -1,5 +1,6 @@
 export type itemTypes = {
   id: string;
+  created_at: Date;
   type: string;
   typedish: string;
   price: number;
