@@ -125,10 +125,3 @@ export async function POST(req: NextRequest) {
     });
   }
 }
-
-export const config = {
-  runtime: "nodejs", // or 'nodejs' if you need access to node modules
-  api: {
-    bodyParser: true,
-  },
-};

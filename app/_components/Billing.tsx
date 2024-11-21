@@ -24,7 +24,7 @@ export function Billing() {
     }
 
     try {
-      const res = await axios.post("/api/food/pos", {
+      const res = await axios.post("http://localhost:3001/print", {
         items: isItem,
         totalPrice: total,
       });
@@ -32,6 +32,11 @@ export function Billing() {
       if (res.data.message === "success") {
         return reset();
       }
+
+      if (res.data.message === "failed") {
+        alert("FAILED TO EXCUTE");
+      }
+      //
     } catch (error) {
       console.error("Error Message", error);
     }
@@ -43,10 +48,17 @@ export function Billing() {
     }
 
     try {
-      const res = await axios.post("/api/food/kitchen", {
+      const res = await axios.post("http://localhost:3001/kitchen", {
         items: isItem,
       });
-      return res;
+
+      if (res.data.message === "success") {
+        return reset();
+      }
+
+      if (res.data.message === "failed") {
+        alert("FAILED TO EXCUTE");
+      }
     } catch (error) {
       console.error("Error Message", error);
     }
