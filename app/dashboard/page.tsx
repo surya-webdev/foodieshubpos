@@ -26,11 +26,12 @@ export default function Page() {
       setIsLoading(true);
       const response = await getThirtyDaySales();
 
+      // @ts-ignore
       setIsData(() =>
         response.map((item) => {
           return {
             ...item,
-            day: String(item.day).split(" ").join("").slice(3, 8),
+            day: String(item?.day).split(" ").join("").slice(3, 8),
           };
         }),
       );

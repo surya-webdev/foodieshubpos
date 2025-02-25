@@ -17,7 +17,7 @@ const printer = new ThermalPrinter({
   lineCharacter: "2", // Set character for lines - default: "-"
   breakLine: BreakLine.WORD, // Break line after WORD or CHARACTERS. Disabled with NONE - default: WORD
   options: {
-    timeout: 5000,
+    timeout: 15000,
   },
 });
 

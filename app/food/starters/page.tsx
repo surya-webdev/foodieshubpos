@@ -1,4 +1,5 @@
 // "use client";
+// @ts-nocheck
 
 import { MenuLayout } from "@/app/_components/MenuLayout";
 import { getStarter } from "@/app/lib/actions";
