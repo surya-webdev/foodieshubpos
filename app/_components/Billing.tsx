@@ -22,9 +22,9 @@ export function Billing() {
     if (isItem.length === 0 && !total) {
       return;
     }
-
+// "/api/food/pos",
     try {
-      const res = await axios.post("/api/food/pos", {
+      const res = await axios.post( "http://localhost:3001/print",{
         items: isItem,
         totalPrice: total,
       });
@@ -41,9 +41,9 @@ export function Billing() {
     if (isItem.length === 0) {
       return;
     }
-
+// /api/food/kitchen"
     try {
-      const res = await axios.post("/api/food/kitchen", {
+      const res = await axios.post("http://localhost:3001/kitchen", {
         items: isItem,
       });
       return res;

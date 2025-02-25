@@ -7,7 +7,7 @@ import { itemTypes } from "@/app/types";
 export default async function Page() {
   const res = await getStarter();
 
-  // console.log(res);
+  // (res);
   const vegData = res?.filter((item: itemTypes) => item.type === "veg");
   const nonVegData = res?.filter(
     (item: itemTypes) => item.type.toLowerCase() === "nonveg",

@@ -21,9 +21,13 @@ const printer = new ThermalPrinter({
   },
 });
 
+ 
+
+
 const rupees = "Rs.";
 
 export async function POST(req: NextRequest) {
+  let isConnected = await printer.isPrinterConnected(); 
   const { items, totalPrice } = await req.json();
 
   if (items.length === 0 || !totalPrice) return;
@@ -110,11 +114,17 @@ export async function POST(req: NextRequest) {
       },
     });
 
+    
+
     const res = await printer.execute();
 
     if (res.toLowerCase().split(" ").join("") === "printdone") {
+      console.log({
+        message: "success",
+        isConnected})
       return NextResponse.json({
         message: "success",
+        isConnected
       });
     }
   } catch (error) {
