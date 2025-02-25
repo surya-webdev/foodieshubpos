@@ -6,11 +6,6 @@ import { itemTypes } from "@/app/types";
 
 export default async function Page() {
   const res = await getMainCourse();
-<<<<<<< HEAD
-  // (res);
-=======
->>>>>>> 63a4e79ad9d02a8bd5d541f5eb417cac5bc1e12f
-
   const vegData = res?.filter((item) => item?.type === "veg");
   // @ts-ignore
   const nonVegData = res?.filter(

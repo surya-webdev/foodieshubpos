@@ -1,12 +1,8 @@
 "use client";
 
 import { useState } from "react";
-<<<<<<< HEAD
-=======
-import { useItem } from "../lib/ItemContexts";
->>>>>>> 63a4e79ad9d02a8bd5d541f5eb417cac5bc1e12f
 import { itemTypes } from "../types";
-import { useItem } from "../lib/ItemContext";
+import { useItem } from "../lib/ItemContexts";
 
 export function MenuLayout(props: { item: itemTypes }) {
   const [isQuantity, setIsQuantity] = useState(1);
