@@ -7,17 +7,18 @@ import { FaMoneyBills } from "react-icons/fa6";
 
 export async function Sale() {
   // @ts-ignore
-  const responseTotalSale: any = await getTotalSale();
+  const responseTotalSale: daySale[] = await getTotalSale();
+
   // @ts-ignore
-  const responseTodaySale: any = await getSale();
+  const responseTodaySale: daySale[] = await getSale();
 
   const daySale = responseTodaySale
-    .map((item: daySale) => item?.sale)
-    .reduce((cur: number, acc: number) => acc + cur, 0);
+    ?.map((item: daySale) => item?.sale)
+    ?.reduce((cur: number, acc: number) => acc + cur, 0);
 
   const totalSale = responseTotalSale
-    .map((item: daySale) => item?.sale)
-    .reduce((cur: number, acc: number) => acc + cur, 0);
+    ?.map((item: daySale) => item?.sale)
+    ?.reduce((cur: number, acc: number) => acc + cur, 0);
 
   if (daySale < 0 || totalSale < 0) return <p className="text-3xl">No Data</p>;
 

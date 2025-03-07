@@ -1,39 +1,76 @@
 "use client";
 
-import { GiEmptyHourglass } from "react-icons/gi";
-import { TiDelete } from "react-icons/ti";
 
 import axios from "axios";
-import { useItem } from "../lib/ItemContexts";
+import { toast } from "react-toastify";
+import { TiDelete } from "react-icons/ti";
+import "react-toastify/dist/ReactToastify.css";
+import { GiEmptyHourglass } from "react-icons/gi";
+
+import prisma from "../lib/db";
 import { itemTypes } from "../types";
+import { useItem } from "../lib/ItemContexts";
+
+
 
 export function Billing() {
   const { isItem, removeItem, resetItem } = useItem();
 
+  const today = new Date();
+  const formattedDate = today.toISOString().split("T")[0];
+ 
   function reset() {
     resetItem();
   }
+  
+  // TOTAL PRICE LOOP!
 
-  const total = isItem
-    ?.map((item: itemTypes) => item.price * (item.quantity ? item.quantity : 1))
-    ?.reduce((acc: number, curr: number) => acc + curr, 0);
+  let total = 0;
+
+  for (let i = 0; i < isItem.length ; i++){
+    let itemQuantity = isItem[i].quantity ? isItem[i].quantity : 1;
+    total = total + isItem[i].price * itemQuantity;
+  }
 
   async function handler() {
+
     if (isItem.length === 0 && !total) {
       return;
     }
-// "/api/food/pos",
+    
     try {
       const res = await axios.post( "http://localhost:3001/print",{
         items: isItem,
         totalPrice: total,
       });
 
-      if (res.data.message === "success") {
-        return reset();
+
+      if (res.data.message == "success") {
+        const response = await prisma.dashboard.create({
+          data:{
+            day: new Date(formattedDate),
+            sale:total
+          }
+        })
       }
+
+      reset();
+
     } catch (error) {
       console.error("Error Message", error);
+       toast.error(
+                   "Please Connect your printer!",
+                   {
+                     position: "top-right",
+                     autoClose: 5000,
+                     hideProgressBar: false,
+                     closeOnClick: true,
+                     pauseOnHover: true,
+                     draggable: true,
+                     theme: "light",
+                   },
+                 );
+     
     }
   }
 
@@ -41,6 +78,7 @@ export function Billing() {
     if (isItem.length === 0) {
       return;
     }
+
 // /api/food/kitchen"
     try {
       const res = await axios.post("http://localhost:3001/kitchen", {
@@ -49,23 +87,26 @@ export function Billing() {
       return res;
     } catch (error) {
       console.error("Error Message", error);
+       toast.error(
+                   "Please Connect your printer!",
+                   {
+                     position: "top-right",
+                     autoClose: 5000,
+                     hideProgressBar: false,
+                     closeOnClick: true,
+                     pauseOnHover: true,
+                     draggable: true,
+                     theme: "light",
+                   },
+                 );
     }
   }
 
-  if (isItem.length <= 0 || !isItem) {
-    return (
-      <div className="flex items-center justify-center text-xl">
-        <p className="py-2 text-red-600">
-          <GiEmptyHourglass />
-        </p>
-        <p>No item here!</p>
-      </div>
-    );
-  }
-
-  if (isItem.length > 0) {
-    return (
-      <div className="flex flex-col justify-between bg-slate-50 px-4 py-6 font-bold">
+ return (
+  
+  <div className="flex flex-col justify-between bg-slate-50 px-4 py-6 font-bold overflow-y-scroll">
+     {isItem.length > 0  ?
+     <>
         <div>
           <div className="flex justify-between py-4 text-2xl text-[#d6651f]">
             <p>Food</p>
@@ -132,10 +173,18 @@ export function Billing() {
             </button>
           </div>
         </div>
-
         <div className=""></div>
         <div></div>
-      </div>
-    );
-  }
+      </>
+     : <>
+     <div className="flex self-center justify-self-center justify-center items-center">
+      <p className="py-2 text-red-600">
+          <GiEmptyHourglass />
+      </p>
+      <p>No item here!</p>
+     </div>
+    </>
+}     
+</div>
+)
 }

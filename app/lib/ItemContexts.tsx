@@ -21,6 +21,7 @@ const defaultContextValue: itemDefault = {
 const itemContext = createContext<itemDefault>(defaultContextValue);
 
 export function ItemProvide({ children }: { children: React.ReactNode }) {
+  
   const [isItem, setIsItem] = useState<itemTypes[]>([]);
 
   function addItem(item: itemTypes) {

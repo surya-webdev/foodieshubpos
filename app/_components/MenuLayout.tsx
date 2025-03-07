@@ -22,12 +22,14 @@ export function MenuLayout(props: { item: itemTypes }) {
       </div>
       <div className="flex justify-between">
         <button
-          onClick={() =>
+          onClick={() => {
             addItem({
               ...props.item,
               quantity: isQuantity,
               id: `${props.item.id}${Math.random() * 3000}`,
             })
+            setIsQuantity(1)
+          }
           }
           className="text-md rounded-lg bg-[#d6651f] px-6 font-bold text-black"
         >

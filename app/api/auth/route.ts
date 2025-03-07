@@ -5,6 +5,7 @@ import prisma from "../../lib/db";
 import { SignJWT } from "jose";
 
 export async function POST(req: NextRequest) {
+
   const data = await req.json();
 
   if (!data.userName || !data.password)

@@ -28,7 +28,7 @@ export default function Page() {
 
       // @ts-ignore
       setIsData(() =>
-        response.map((item) => {
+        response?.map((item) => {
           return {
             ...item,
             day: String(item?.day).split(" ").join("").slice(3, 8),
