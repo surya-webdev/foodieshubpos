@@ -9,9 +9,9 @@ export type itemTypes = {
 };
 
 export interface daySale {
-  id: string;
-  created_at: object;
-  day: object;
-  sale: number;
-  typedish: object;
+    id: string;
+    created_at: Date;
+    typedish: string | null;
+    day: Date | null;
+    sale: number | null;
 }

@@ -53,5 +53,5 @@ model dashboard {
   created_at DateTime  @default(now()) @db.Timestamptz(6)
   day        DateTime? @default(now()) @db.Date
   sale       Float?    @db.Real
-  typedish   Json?     @default("{}")
+  typedish   String?   @default("{}")
 }

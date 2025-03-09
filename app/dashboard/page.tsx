@@ -14,10 +14,9 @@ import { getThirtyDaySales } from "../lib/actions";
 import { daySale } from "../types";
 import { Loader } from "../_components/Loader";
 
-// const data = [{ name: "Oct 1", uv: 400, pv: 2400, amt: 2400 }];
+//  [{ name: "Oct 1", uv: 400, pv: 2400, amt: 2400 }];
 
 export default function Page() {
-  //
   const [isData, setIsData] = useState<daySale[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 

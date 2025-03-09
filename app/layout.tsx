@@ -4,6 +4,7 @@ import "./globals.css";
 
 import { ToastContainer } from "react-toastify";
 import { ItemProvide } from "./lib/ItemContexts";
+import { Motion } from "./_components/Motion";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -31,10 +32,12 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+       <Motion>
         <ToastContainer />
         <ItemProvide>
           <div>{children}</div>
         </ItemProvide>
+       </Motion>
       </body>
     </html>
   );

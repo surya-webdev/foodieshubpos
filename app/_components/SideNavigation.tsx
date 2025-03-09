@@ -98,6 +98,20 @@ export function SideNavigation() {
               </div>
             </Link>
           </li>
+           <li className="rounded-lg px-4 py-2 text-[1.2rem] justify-between">
+            <Link
+              onClick={() => setIsOpen(() => !isOpen)}
+              className="flex items-center justify-between gap-4 rounded-lg px-2 py-1 text-[#000000] transition-all hover:bg-slate-300"
+              href={"/dashboard"}
+            >
+              <div className="flex items-center justify-center gap-2">
+                <span className="block">
+                  <GiHotSpices />
+                </span>
+                <span className="block font-medium">User</span>
+              </div>
+            </Link>
+          </li>
         </>
       </ul>
     </aside>
