@@ -7,7 +7,7 @@ import { BiSolidHide } from "react-icons/bi";
 
 
 export function Total({children,sale,type}:{children:React.ReactNode, sale:number ,type:string}){
-  const [isReveal , setIsReveal] = useState<boolean>(false);
+  const [isReveal , setIsReveal] = useState<boolean>(true);
   
  return <figure className="relative">
         <div className={`-z-20 flex w-[15rem] items-start justify-between rounded-lg bg-slate-100 p-4 ${isReveal ? "blur-[3.5px]" : "blur-0"} transition-all`}>

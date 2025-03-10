@@ -54,4 +54,5 @@ model dashboard {
   day        DateTime? @default(now()) @db.Date
   sale       Float?    @db.Real
   typedish   String?   @default("{}")
+  quantity   Float?    @default(1)
 }

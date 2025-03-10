@@ -11,7 +11,7 @@ export type itemTypes = {
 export interface daySale {
     id: string;
     created_at: Date;
-    typedish: string | null;
     day: Date | null;
     sale: number | null;
+    typedish: string | null;
 }

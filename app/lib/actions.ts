@@ -3,7 +3,7 @@
 import { startOfDay, subDays } from "date-fns";
 
 import prisma from "./db";
-import { daySale } from "../types";
+import { daySale, itemTypes } from "../types";
 
 export async function getStarter() {
   try {
@@ -58,7 +58,6 @@ export async function getSale() {
 }
 
 export async function getTotalSale() {
-
   try{
     const res = await prisma.dashboard.findMany();
     return res;
@@ -71,7 +70,6 @@ export async function getThirtyDaySales() {
   //
   const today = new Date();
   const promise = Array.from({ length: 30 }, async (_, i) => {
-
     const date = startOfDay(subDays(today, i));
     const dateString = date.toISOString().split("T")[0];
     const dayData = await prisma?.dashboard.findMany({
@@ -81,14 +79,39 @@ export async function getThirtyDaySales() {
     });
 
     if (!dayData) {
+      return;
     } else {
       return dayData;
     }
+  
   }).reverse();
 
   const getPromise = await Promise.all(promise);
   const result = getPromise.flat();
   return result;
+}
 
+
+
+export async function billUpload({soldItem}:{soldItem: itemTypes[] | []}) {
+
+  const today = new Date();
+  const formattedDate = today.toISOString().split("T")[0];
   
+try{
+
+  soldItem.forEach(async (item,index) => {
+    const response = await prisma.dashboard.create({
+      data:{
+        sale: item.price,
+        typedish:item.type,
+        day: new Date(formattedDate),
+      }
+    }) 
+  })
+  return { status:true }
+  }catch(error){
+    console.error("Error",error);
+    return {status:false}
+  }
 }

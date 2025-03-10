@@ -52,7 +52,7 @@ export default function Page() {
 
   return (
     <>
-      <div className="py- flex flex-col gap-10">
+      <div className="grid grid-cols-2 gap-10">
         <div className="h-[10rem] w-full">
           <LineChart
             width={1000}
@@ -67,6 +67,7 @@ export default function Page() {
             <Tooltip />
           </LineChart>
         </div>
+        <div></div>
       </div>
     </>
   );

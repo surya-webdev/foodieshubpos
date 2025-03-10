@@ -7,23 +7,19 @@ import { TiDelete } from "react-icons/ti";
 import "react-toastify/dist/ReactToastify.css";
 import { GiEmptyHourglass } from "react-icons/gi";
 
-import prisma from "../lib/db";
 import { itemTypes } from "../types";
 import { useItem } from "../lib/ItemContexts";
+import { billUpload } from "../lib/actions";
 
 
 
 export function Billing() {
+
   const { isItem, removeItem, resetItem } = useItem();
 
-  const today = new Date();
-  const formattedDate = today.toISOString().split("T")[0];
- 
   function reset() {
     resetItem();
   }
-  
-  // TOTAL PRICE LOOP!
 
   let total = 0;
 
@@ -32,29 +28,49 @@ export function Billing() {
     total = total + isItem[i].price * itemQuantity;
   }
 
-  async function handler() {
+  async function printHandler() {
 
     if (isItem.length === 0 && !total) {
       return;
     }
     
     try {
-      const res = await axios.post( "http://localhost:3001/print",{
+      const res = await axios.post("http://localhost:3001/print",{
         items: isItem,
         totalPrice: total,
       });
 
 
       if (res.data.message == "success") {
-        const response = await prisma.dashboard.create({
-          data:{
-            day: new Date(formattedDate),
-            sale:total
-          }
-        })
-      }
+       const response = await billUpload({soldItem:isItem});
+       if(response.status == true){
+        reset();
+         toast.success("Sucessfully added to the database", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+       }else{
+        toast.error(
+                   "Error Occured!",
+                   {
+                     position: "top-right",
+                     autoClose: 5000,
+                     hideProgressBar: false,
+                     closeOnClick: true,
+                     pauseOnHover: true,
+                     draggable: true,
+                     theme: "light",
+                   },
+                 );
+       }
 
-      reset();
+      }
 
     } catch (error) {
       console.error("Error Message", error);
@@ -70,11 +86,45 @@ export function Billing() {
                      theme: "light",
                    },
                  );
-     
     }
   }
 
-  async function handler2() {
+  async function saveHandler() {
+    
+    if (isItem.length === 0 && !total) {
+      return;
+    }
+
+      const response = await billUpload({soldItem:isItem});
+       if(response.status == true){
+        reset();
+        toast.success("Sucessfully added to the database", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+       }else{
+        toast.error(
+                   "Error Occured!",
+                   {
+                     position: "top-right",
+                     autoClose: 5000,
+                     hideProgressBar: false,
+                     closeOnClick: true,
+                     pauseOnHover: true,
+                     draggable: true,
+                     theme: "light",
+                   },
+                 );
+       }
+  }
+
+  async function kitchenHandler() {
     if (isItem.length === 0) {
       return;
     }
@@ -97,8 +147,8 @@ export function Billing() {
                      pauseOnHover: true,
                      draggable: true,
                      theme: "light",
-                   },
-                 );
+                   }
+    );
     }
   }
 
@@ -158,7 +208,7 @@ export function Billing() {
           <div className="flex w-full flex-col items-center justify-center gap-4">
             <button
               disabled={!isItem.length}
-              onClick={() => handler()}
+              onClick={() => printHandler()}
               className="w-full rounded-lg bg-[#d6651f] px-8 text-lg font-bold text-black"
             >
               Print
@@ -166,10 +216,18 @@ export function Billing() {
             <p>(or)</p>
             <button
               disabled={!isItem.length}
-              onClick={() => handler2()}
+              onClick={() => kitchenHandler()}
+              className="w-full rounded-lg bg-[#d6651f] px-8 text-lg font-bold text-black"
+              >
+              Kitchen Order
+            </button>
+            <p>(or)</p>
+            <button
+              disabled={!isItem.length}
+              onClick={() => saveHandler()}
               className="w-full rounded-lg bg-[#d6651f] px-8 text-lg font-bold text-black"
             >
-              Kitchen Order
+              Save and Don't Print
             </button>
           </div>
         </div>

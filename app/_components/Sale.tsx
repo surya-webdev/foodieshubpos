@@ -1,8 +1,7 @@
 "use server";
 
-import { SiMoneygram } from "react-icons/si";
 import { FaMoneyBills } from "react-icons/fa6";
-import { BiSolidHide } from "react-icons/bi";
+import { SiMoneygram } from "react-icons/si";
 
 import { getSale, getTotalSale } from "../lib/actions";
 import { daySale } from "../types";

@@ -5,7 +5,7 @@ import React, { createContext, useContext, useState } from "react";
 import { itemTypes } from "../types";
 
 interface itemDefault {
-  isItem: itemTypes[];
+  isItem: itemTypes[] | [];
   addItem: (item: itemTypes) => void;
   removeItem: (id: string) => void;
   resetItem: () => void;
