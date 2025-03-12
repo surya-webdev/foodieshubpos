@@ -43,9 +43,9 @@ export function Billing() {
 
       if (res.data.message == "success") {
        const response : apiResponse = await axios.post("/api/upload",{soldItem:isItem});
-      //  await billUpload({soldItem:isItem});
-      //@ts-ignore
-       if(response.status == true){
+      //  await billUpload({soldItem:isItem})
+      console.log(response)
+       if(response.data.status == true){
         reset();
          toast.success("Sucessfully added to the database", {
           position: "top-right",
@@ -98,7 +98,7 @@ export function Billing() {
     }
       const response : apiResponse = await axios.post("/api/upload",{soldItem:isItem});
       // const response = await billUpload({soldItem:isItem});
-       if(response.status == true){
+       if(response.data.status == true){
         reset();
         toast.success("Sucessfully added to the database", {
           position: "top-right",

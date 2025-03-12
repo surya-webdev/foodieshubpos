@@ -18,5 +18,5 @@ export interface daySale {
 }
 
 export type apiResponse = {
- status : boolean;
+ data : {status:boolean};
 }
