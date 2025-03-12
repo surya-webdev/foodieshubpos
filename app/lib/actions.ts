@@ -1,5 +1,9 @@
 "use server";
 
+
+
+export const revalidate = 0;
+
 import { startOfDay, subDays } from "date-fns";
 
 import prisma from "./db";
@@ -103,8 +107,9 @@ try{
   soldItem.forEach(async (item,index) => {
     const response = await prisma.dashboard.create({
       data:{
+        quantity:item.quantity,
         sale: item.price,
-        typedish:item.type,
+        typedish:item.typedish,
         day: new Date(formattedDate),
       }
     }) 

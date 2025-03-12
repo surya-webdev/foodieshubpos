@@ -1,6 +1,9 @@
 import { Sale } from "../_components/Sale";
 import { SideNavigation } from "../_components/SideNavigation";
 
+
+export const revalidate = 0;
+
 export default function RootLayout({
   children,
 }: {

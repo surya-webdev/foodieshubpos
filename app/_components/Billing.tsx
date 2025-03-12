@@ -12,6 +12,7 @@ import { useItem } from "../lib/ItemContexts";
 import { billUpload } from "../lib/actions";
 
 
+export const revalidate = 0;
 
 export function Billing() {
 
