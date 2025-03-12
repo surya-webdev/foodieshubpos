@@ -14,4 +14,5 @@ export interface daySale {
     day: Date | null;
     sale: number | null;
     typedish: string | null;
+    quantity : number | 1;
 }

@@ -51,8 +51,8 @@ model user {
 model dashboard {
   id         String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   created_at DateTime  @default(now()) @db.Timestamptz(6)
-  day        DateTime? @default(now()) @db.Date
-  sale       Float?    @db.Real
-  typedish   String?   @default("{}")
-  quantity   Float?    @default(1)
+  day        DateTime @default(now()) @db.Date
+  sale       Float    @db.Real
+  typedish   String   @default("")
+  quantity   Float    @default(1)
 }

@@ -4,18 +4,16 @@ import { FaMoneyBills } from "react-icons/fa6";
 import { SiMoneygram } from "react-icons/si";
 
 import { getSale, getTotalSale } from "../lib/actions";
-import { daySale } from "../types";
 import { Total } from "./Total";
 
 export async function Sale() {
-
   
-  const responseTotalSale: daySale[] = (await getTotalSale()) || [];
-  const responseTodaySale: daySale[] = await getSale() || [];
+  const responseTotalSale = (await getTotalSale()) || [];
+  const responseTodaySale = await getSale() || [];
 
-  const daySale : number  = responseTodaySale?.reduce((sum, item) => sum +=(item?.sale || 0), 0)
+  const daySale : number  = responseTodaySale?.reduce((sum, item) => sum +=(item?.sale * item.quantity || 0), 0)
 
-  const totalSale : number = responseTotalSale?.reduce((sum , item) => sum +=(item?.sale || 0), 0); 
+  const totalSale : number = responseTotalSale?.reduce((sum , item) => sum +=(item?.sale * item.quantity || 0), 0); 
 
   if (daySale < 0 || totalSale < 0) return <p className="text-3xl">No Data</p>;
 

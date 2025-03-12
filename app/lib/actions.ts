@@ -1,9 +1,5 @@
 "use server";
 
-
-
-export const revalidate = 0;
-
 import { startOfDay, subDays } from "date-fns";
 
 import prisma from "./db";
