@@ -7,7 +7,7 @@ import { TiDelete } from "react-icons/ti";
 import "react-toastify/dist/ReactToastify.css";
 import { GiEmptyHourglass } from "react-icons/gi";
 
-import { itemTypes } from "../types";
+import { apiResponse, itemTypes } from "../types";
 import { useItem } from "../lib/ItemContexts";
 import { billUpload } from "../lib/actions";
 
@@ -42,7 +42,9 @@ export function Billing() {
 
 
       if (res.data.message == "success") {
-       const response = await billUpload({soldItem:isItem});
+       const response : apiResponse = await axios.post("/api/upload",{soldItem:isItem});
+      //  await billUpload({soldItem:isItem});
+      //@ts-ignore
        if(response.status == true){
         reset();
          toast.success("Sucessfully added to the database", {
@@ -94,8 +96,8 @@ export function Billing() {
     if (isItem.length === 0 && !total) {
       return;
     }
-
-      const response = await billUpload({soldItem:isItem});
+      const response : apiResponse = await axios.post("/api/upload",{soldItem:isItem});
+      // const response = await billUpload({soldItem:isItem});
        if(response.status == true){
         reset();
         toast.success("Sucessfully added to the database", {

@@ -16,3 +16,7 @@ export interface daySale {
     typedish: string | null;
     quantity : number | 1;
 }
+
+export type apiResponse = {
+ status : boolean;
+}
