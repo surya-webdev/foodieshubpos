@@ -6,7 +6,7 @@ import { useState } from "react";
 import { BiSolidHide } from "react-icons/bi";
 
 
-export function Total({children,sale,type}:{children:React.ReactNode, sale:number ,type:string}){
+export function Total({children,sale,type}:{children:React.ReactNode, sale:string ,type:string}){
   const [isReveal , setIsReveal] = useState<boolean>(true);
   
  return <figure className="relative">
@@ -17,7 +17,7 @@ export function Total({children,sale,type}:{children:React.ReactNode, sale:numbe
           </div>
           <div className="text-[#374151]">
             <p className="text-2xl">{type}</p>
-            <p>₹{sale}</p>
+            <p>{sale}</p>
           </div>
         </div>
         <div onClick={()=>setIsReveal(s => s = !s)} className="absolute top-0 right-0 m-1 cursor-pointer"><p>{isReveal ? <BiSolidHide /> :<GrView /> }</p></div>

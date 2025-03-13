@@ -3,7 +3,8 @@
 import { startOfDay, subDays } from "date-fns";
 
 import prisma from "./db";
-import { daySale, itemTypes } from "../types";
+import { daySale, itemTypes, monthKey } from "../types";
+import { format } from "date-fns/fp";
 
 export async function getStarter() {
   try {
@@ -41,10 +42,10 @@ export async function getSoups() {
 
 // get the dashboard details
 
+const today = new Date();
+const formattedDate = today.toISOString().split("T")[0];
 export async function getSale() {
 
-  const today = new Date();
-  const formattedDate = today.toISOString().split("T")[0];
   try{
     const res = await prisma.dashboard.findMany({
       where: {
@@ -66,30 +67,64 @@ export async function getTotalSale() {
   }
 }
 
-export async function getThirtyDaySales() {
-  //
-  const today = new Date();
-  const promise = Array.from({ length: 30 }, async (_, i) => {
-    const date = startOfDay(subDays(today, i));
+
+export async function todaySale(){
+  
+  const daySale = (await prisma.dashboard.findMany({
+    where:{
+      day:new Date(formattedDate)
+    }
+  })||[])
+
+  return daySale;
+}
+
+export async function getThirtyDaySales({days = 30}) {
+
+    const promise = Array.from({ length: days }, async (_, i) => {
+    const date = startOfDay(subDays(today, i - 1));
+   
     const dateString = date.toISOString().split("T")[0];
     const dayData = await prisma?.dashboard.findMany({
       where: {
         day: new Date(dateString),
       },
     });
-
-    if (!dayData) {
-      return;
-    } else {
-      return dayData;
-    }
   
+    return dayData;
   }).reverse();
 
   const getPromise = await Promise.all(promise);
   const result = getPromise.flat();
-  return result;
+
+  const salesByMonth:Record <string, monthKey>   = {};
+
+  result?.forEach((item) =>{
+    const salesDate = item.day;
+    
+    const monthKey = `${salesDate?.getFullYear()}-${String(salesDate?.getMonth() +1 ).padStart(2, '0')}`;
+    const monthDisplay = salesDate.toLocaleString("en-Us",{month:"long", year:"numeric"})
+
+    if(!salesByMonth[monthKey]){
+     salesByMonth[monthKey] = {
+        month: monthDisplay,
+        sales: [],
+        totalSales: 0,
+        sortKey: monthKey 
+      };
+    }
+
+    salesByMonth[monthKey].sales.push(item);
+    salesByMonth[monthKey].totalSales  += item.sale * item.quantity;
+    // console.log(salesByMonth)
+    
+  })
+
+  const monthData = Object.values(salesByMonth).sort((a: { sortKey: string; },b: { sortKey: string; }) => b.sortKey.localeCompare(a.sortKey));
+
+  return monthData;
 }
+
 
 
 

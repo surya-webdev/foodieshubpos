@@ -20,3 +20,10 @@ export interface daySale {
 export type apiResponse = {
  data : {status:boolean};
 }
+
+export type monthKey = {
+ month:string,
+ sales:daySale[],
+ totalSales:number,
+ sortKey:string
+}

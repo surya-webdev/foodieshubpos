@@ -10,12 +10,14 @@ import { GiEmptyHourglass } from "react-icons/gi";
 import { apiResponse, itemTypes } from "../types";
 import { useItem } from "../lib/ItemContexts";
 import { billUpload } from "../lib/actions";
+import { useState } from "react";
 
 
 
 export function Billing() {
 
   const { isItem, removeItem, resetItem } = useItem();
+  const [isLoading , setIsLoading] = useState<boolean>(false)
 
   function reset() {
     resetItem();
@@ -30,10 +32,10 @@ export function Billing() {
 
   async function printHandler() {
 
+    setIsLoading(true)
     if (isItem.length === 0 && !total) {
       return;
     }
-    
     try {
       const res = await axios.post("http://localhost:3001/print",{
         items: isItem,
@@ -43,8 +45,6 @@ export function Billing() {
 
       if (res.data.message == "success") {
        const response : apiResponse = await axios.post("/api/upload",{soldItem:isItem});
-      //  await billUpload({soldItem:isItem})
-      console.log(response)
        if(response.data.status == true){
         reset();
          toast.success("Sucessfully added to the database", {
@@ -88,17 +88,21 @@ export function Billing() {
                      theme: "light",
                    },
                  );
+    }finally{
+      setIsLoading(false)
     }
   }
 
   async function saveHandler() {
     
+    setIsLoading(true);
+
     if (isItem.length === 0 && !total) {
       return;
     }
+    try{
       const response : apiResponse = await axios.post("/api/upload",{soldItem:isItem});
-      // const response = await billUpload({soldItem:isItem});
-       if(response.data.status == true){
+      if(response.data.status == true){
         reset();
         toast.success("Sucessfully added to the database", {
           position: "top-right",
@@ -112,7 +116,7 @@ export function Billing() {
         });
        }else{
         toast.error(
-                   "Error Occured!",
+          "Error Occured!",
                    {
                      position: "top-right",
                      autoClose: 5000,
@@ -124,14 +128,31 @@ export function Billing() {
                    },
                  );
        }
-  }
+      }catch (error) {
+      console.error("Error Message", error);
+       toast.error(
+                   "Please Connect your printer!",
+                   {
+                     position: "top-right",
+                     autoClose: 5000,
+                     hideProgressBar: false,
+                     closeOnClick: true,
+                     pauseOnHover: true,
+                     draggable: true,
+                     theme: "light",
+                   },
+                 );
+    }finally{
+      setIsLoading(false)
+    }
+    }
 
   async function kitchenHandler() {
+    setIsLoading(true);
+    
     if (isItem.length === 0) {
       return;
     }
-
-// /api/food/kitchen"
     try {
       const res = await axios.post("http://localhost:3001/kitchen", {
         items: isItem,
@@ -151,6 +172,8 @@ export function Billing() {
                      theme: "light",
                    }
     );
+    }finally{
+      setIsLoading(false)
     }
   }
 
@@ -209,7 +232,7 @@ export function Billing() {
 
           <div className="flex w-full flex-col items-center justify-center gap-4">
             <button
-              disabled={!isItem.length}
+              disabled={!isItem.length || isLoading}
               onClick={() => printHandler()}
               className="w-full rounded-lg bg-[#d6651f] px-8 text-lg font-bold text-black"
             >
@@ -217,7 +240,7 @@ export function Billing() {
             </button>
             <p>(or)</p>
             <button
-              disabled={!isItem.length}
+              disabled={!isItem.length || isLoading}
               onClick={() => kitchenHandler()}
               className="w-full rounded-lg bg-[#d6651f] px-8 text-lg font-bold text-black"
               >
@@ -225,7 +248,7 @@ export function Billing() {
             </button>
             <p>(or)</p>
             <button
-              disabled={!isItem.length}
+              disabled={!isItem.length || isLoading}
               onClick={() => saveHandler()}
               className="w-full rounded-lg bg-[#d6651f] px-8 text-lg font-bold text-black"
             >
