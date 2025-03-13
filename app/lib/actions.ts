@@ -1,6 +1,6 @@
 "use server";
 
-import { startOfDay, subDays } from "date-fns";
+import { endOfDay, startOfDay, subDays } from "date-fns";
 
 import prisma from "./db";
 import { daySale, itemTypes, monthKey } from "../types";
@@ -79,53 +79,55 @@ export async function todaySale(){
   return daySale;
 }
 
-export async function getThirtyDaySales({days = 30}) {
-
-    const promise = Array.from({ length: days }, async (_, i) => {
-    const date = startOfDay(subDays(today, i - 1));
-   
-    const dateString = date.toISOString().split("T")[0];
-    const dayData = await prisma?.dashboard.findMany({
-      where: {
-        day: new Date(dateString),
-      },
-    });
+export async function getThirtyDaySales(days: number = 30) {
+  console.log(days);
   
-    return dayData;
-  }).reverse();
-
-  const getPromise = await Promise.all(promise);
-  const result = getPromise.flat();
-
-  const salesByMonth:Record <string, monthKey>   = {};
-
-  result?.forEach((item) =>{
-    const salesDate = item.day;
+  try {
+    const startDate = startOfDay(subDays(today, days - 1));
+    const endDate = endOfDay(today);
     
-    const monthKey = `${salesDate?.getFullYear()}-${String(salesDate?.getMonth() +1 ).padStart(2, '0')}`;
-    const monthDisplay = salesDate.toLocaleString("en-Us",{month:"long", year:"numeric"})
-
-    if(!salesByMonth[monthKey]){
-     salesByMonth[monthKey] = {
-        month: monthDisplay,
-        sales: [],
-        totalSales: 0,
-        sortKey: monthKey 
-      };
-    }
-
-    salesByMonth[monthKey].sales.push(item);
-    salesByMonth[monthKey].totalSales  += item.sale * item.quantity;
-    // console.log(salesByMonth)
+    const result = await prisma.dashboard.findMany({
+      where: {
+        day: {
+          gte: startDate,
+          lte: endDate
+        }
+      }
+    });
     
-  })
-
-  const monthData = Object.values(salesByMonth).sort((a: { sortKey: string; },b: { sortKey: string; }) => b.sortKey.localeCompare(a.sortKey));
-
-  return monthData;
+    if (!result || result.length === 0) return;
+    
+    const salesByMonth: Record<string, monthKey> = {};
+    
+    result.forEach((item) => {
+      const salesDate = item.day;
+      
+      const monthKey = `${salesDate.getFullYear()}-${String(salesDate.getMonth() + 1).padStart(2, '0')}`;
+      const monthDisplay = salesDate.toLocaleString("en-US", { month: "long", year: "numeric" });
+      
+      if (!salesByMonth[monthKey]) {
+        salesByMonth[monthKey] = {
+          month: monthDisplay,
+          sales: [],
+          totalSales: 0,
+          sortKey: monthKey
+        };
+      }
+      
+      salesByMonth[monthKey].sales.push(item);
+      salesByMonth[monthKey].totalSales += item.sale * item.quantity;
+    });
+    
+    const monthData = Object.values(salesByMonth).sort((a, b) => 
+      b.sortKey.localeCompare(a.sortKey)
+    );
+    
+    return monthData;
+  } catch (error) {
+    console.error("Error fetching thirty day sales:", error);
+    throw error;
+  }
 }
-
-
 
 
 export async function billUpload({soldItem}:{soldItem: itemTypes[] | []}) {

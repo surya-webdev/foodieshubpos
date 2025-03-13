@@ -29,8 +29,8 @@ export default function DaySale() {
     try {
       setIsLoading(true);
       const response = await todaySale();
-      const res = await getThirtyDaySales({days:7});
-      console.log(res)
+      // const res = await getThirtyDaySales({days:7});
+      // console.log(res)
       // @ts-ignore
       setIsData(() => 
         response?.map((item) => {

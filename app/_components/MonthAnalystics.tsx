@@ -24,13 +24,14 @@ import { Loader } from "../_components/Loader";
 export function MonthAnalystics(){
   
 const [isData, setIsData] = useState<daySale[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+const [isLoading, setIsLoading] = useState<boolean>(false);
+const [isMonth , setIsMonth] = useState<number>(120);
 
   async function handler() {
     try {
       setIsLoading(true);
     
-      const response = await getThirtyDaySales({days:30});
+      const response = await getThirtyDaySales(isMonth);
       // @ts-ignore
       setIsData(() => response)
 
@@ -44,29 +45,33 @@ const [isData, setIsData] = useState<daySale[]>([]);
 
   useEffect(() => {
     handler();
-  }, []);
+  }, [isMonth]);
 
   if (isLoading) {
     return <Loader />;
   }
 
-  if(!isData.length) return <div className="w-full h-full flex justify-center items-center font-bold text-2xl my-5">Sale is not started yet!!</div>
+  if(isData.length == 0 || !isData ) return <div className="w-full h-full flex justify-center items-center font-bold text-2xl my-5">Sale is not started yet!!</div>
 
   return (
     <>
   
         <div >
-        
         </div>
-
         <div className="w-full">
           <div className="flex justify-center items-center gap-2 font-bold text-2xl my-5">
-            <p>Today Sale</p>
+            <p>Monthly Sales</p>
             <p><IoIosRocket/></p>
             </div>
+            <div className="flex gap-2">
+              <button onClick={()=>setIsMonth(30)} className="bg-main">30 Days</button>
+              <button onClick={()=>setIsMonth(60)} className="bg-main">60 Days</button>
+              <button onClick={()=>setIsMonth(90)} className="bg-main">90 Days</button>
+              <button onClick={()=>setIsMonth(120)} className="bg-main">120 Days</button>
+            </div>
           <ComposedChart width={1000} height={500} data={isData}>
-           <XAxis dataKey="day" />
-           <YAxis dataKey='sale' />
+           <XAxis dataKey="month" />
+           <YAxis dataKey='totalSales' />
            <Tooltip />
            <Legend />
            <CartesianGrid stroke="#f5f5f5" />
