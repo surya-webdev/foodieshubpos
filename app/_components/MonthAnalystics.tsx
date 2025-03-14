@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react";
+import { IoIosRocket } from "react-icons/io";
 import {
   Area,
   Bar,
@@ -8,22 +9,21 @@ import {
   ComposedChart,
   Legend,
   Line,
-  LineChart,
   Tooltip,
   XAxis,
-  YAxis,
+  YAxis
 } from "recharts";
-import { IoIosRocket } from "react-icons/io";
 
-import { getThirtyDaySales, todaySale } from "../lib/actions";
-import { daySale } from "../types";
 import { Loader } from "../_components/Loader";
+import { getThirtyDaySales } from "../lib/actions";
+import { monthKey } from "../types";
 
 
 
 export function MonthAnalystics(){
   
-const [isData, setIsData] = useState<daySale[]>([]);
+// const {isData , addItem}= useSale()
+const [isData , setIsData] = useState<monthKey[]>([])
 const [isLoading, setIsLoading] = useState<boolean>(false);
 const [isMonth , setIsMonth] = useState<number>(120);
 
@@ -33,7 +33,7 @@ const [isMonth , setIsMonth] = useState<number>(120);
     
       const response = await getThirtyDaySales(isMonth);
       // @ts-ignore
-      setIsData(() => response)
+      setIsData(()=> response)
 
     } catch (error) {
       console.error(error);
@@ -56,8 +56,7 @@ const [isMonth , setIsMonth] = useState<number>(120);
   return (
     <>
   
-        <div >
-        </div>
+
         <div className="w-full">
           <div className="flex justify-center items-center gap-2 font-bold text-2xl my-5">
             <p>Monthly Sales</p>
@@ -85,6 +84,3 @@ const [isMonth , setIsMonth] = useState<number>(120);
     </>)
 }
 
-// {id: 'ff7a744a-d7a0-4858-ae94-0a96f552e97e', created_at: Wed Mar 12 2025 19:16:28 GMT+0530 (India Standard Time), day: Wed Mar 12 2025 05:30:00 GMT+0530 (India Standard Time), sale: 120, typedish: 'Paneer Chilli', …}
-// {id: '585be3d5-beb8-4b03-93d4-d72deb4659c1', created_at: Thu Mar 13 2025 12:21:15 GMT+0530 (India Standard Time), day: Thu Mar 13 2025 05:30:00 GMT+0530 (India Standard Time), sale: 100, typedish: 'fish', …}
-// {id: '0d663ce7-9853-4517-a046-bdce5454d0d7', created_at: Thu Mar 13 2025 10:38:26 GMT+0530 (India Standard Time), day: Thu Mar 13 2025 

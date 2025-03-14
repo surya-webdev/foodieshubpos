@@ -9,6 +9,8 @@ import { IoIosArrowDropdownCircle } from "react-icons/io";
 import { MdStart } from "react-icons/md";
 import { GiHotSpices } from "react-icons/gi";
 import { TbSoupFilled } from "react-icons/tb";
+import { MdAnalytics } from "react-icons/md";
+import { FaUserAlt } from "react-icons/fa";
 
 export function SideNavigation() {
   const [isOpen, setIsOpen] = useState(true);
@@ -92,9 +94,9 @@ export function SideNavigation() {
             >
               <div className="flex items-center justify-center gap-2">
                 <span className="block">
-                  <GiHotSpices />
+                  <MdAnalytics />
                 </span>
-                <span className="block font-medium">DashBoard</span>
+                <span className="block font-medium">Dashboard</span>
               </div>
             </Link>
           </li>
@@ -106,7 +108,7 @@ export function SideNavigation() {
             >
               <div className="flex items-center justify-center gap-2">
                 <span className="block">
-                  <GiHotSpices />
+                  <FaUserAlt />
                 </span>
                 <span className="block font-medium">User</span>
               </div>

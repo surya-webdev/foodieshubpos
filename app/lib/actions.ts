@@ -2,9 +2,8 @@
 
 import { endOfDay, startOfDay, subDays } from "date-fns";
 
+import { itemTypes, monthKey } from "../types";
 import prisma from "./db";
-import { daySale, itemTypes, monthKey } from "../types";
-import { format } from "date-fns/fp";
 
 export async function getStarter() {
   try {
@@ -79,12 +78,66 @@ export async function todaySale(){
   return daySale;
 }
 
-export async function getThirtyDaySales(days: number = 30) {
-  console.log(days);
+const WEEK = 7;
+
+export async function getWeeklySale() {
   
+  try {
+    const startDate = startOfDay(subDays(today, WEEK - 1));
+    const endDate = endOfDay(today);
+    console.log(startDate,endDate)
+    
+    const result = await prisma.dashboard.findMany({
+      where: {
+        day: {
+          gte: startDate,
+          lte: endDate
+        }
+      }
+    });
+    
+    if (!result || result.length === 0) return;
+    
+    const salesByMonth: Record<string, monthKey> = {};
+    
+    result.forEach((item) => {
+      const salesDate = item.day;
+      
+      const monthKey = `${salesDate.getDay()}-${salesDate.getFullYear()}-${String(salesDate.getMonth() + 1).padStart(2, '0')}`;
+      const monthDisplay = salesDate.toLocaleString("en-US", {day:"numeric", month: "long", year: "numeric" });
+      
+      if (!salesByMonth[monthKey]) {
+        salesByMonth[monthKey] = {
+          month: monthDisplay,
+          sales: [],
+          totalSales: 0,
+          sortKey: monthKey
+        };
+      }
+      
+      salesByMonth[monthKey].sales.push(item);
+      salesByMonth[monthKey].totalSales += item.sale * item.quantity;
+    });
+    
+    const monthData = Object.values(salesByMonth).sort((a, b) => 
+      b.sortKey.localeCompare(a.sortKey)
+    );
+    
+    return monthData;
+  } catch (error) {
+    console.error("Error fetching thirty day sales:", error);
+    throw error;
+  }
+
+
+}
+
+export async function getThirtyDaySales(days: number = 30) {
+ 
   try {
     const startDate = startOfDay(subDays(today, days - 1));
     const endDate = endOfDay(today);
+    console.log(startDate,endDate)
     
     const result = await prisma.dashboard.findMany({
       where: {
