@@ -13,8 +13,8 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { IoIosRocket } from "react-icons/io";
 
+import { IoIosRocket } from "react-icons/io";
 import { getThirtyDaySales, todaySale } from "../lib/actions";
 import { daySale } from "../types";
 import { Loader } from "../_components/Loader";
@@ -74,13 +74,13 @@ export default function DaySale() {
             <p><IoIosRocket/></p>
             </div>
           <ComposedChart width={1000} height={500} data={isData}>
-           <XAxis dataKey="day" />
+           <XAxis label={""} dataKey="day" />
            <YAxis dataKey='sale' />
            <Tooltip />
            <Legend />
            <CartesianGrid stroke="#f5f5f5" />
-            <Area type="monotone" name="Dish" dataKey="typedish" fill="#8884d8" stroke="#8884d8" />
-            <Area type="monotone" name="Quantity" dataKey="quantity" fill="#000000" stroke="#000000" />
+            <Area type="monotone" name="Dish"  dataKey="typedish" fill="#8884d8" stroke="#8884d8" />
+            <Area type="monotone" name="Order" dataKey="quantity" fill="#000000" stroke="#000000" />
             {/* <Bar  name="Sales" dataKey="sale" barSize={20} fill="#413ea0" /> */}
            <Line type="monotone" name="Sales" dataKey="sale" stroke="#ff7300" />
           </ComposedChart>

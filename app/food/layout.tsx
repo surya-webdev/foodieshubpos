@@ -15,7 +15,7 @@ export default function RootLayout({
         <div></div>
         <SideNavigation />
         <section className="grid h-screen grid-cols-[2.5fr_1.5fr]">
-          <div className="flex flex-col">{children}</div>
+          <div className="flex flex-col w-full h-screen  overflow-y-scroll">{children}</div>
           <Billing />
         </section>
       </section>

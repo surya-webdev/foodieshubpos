@@ -29,10 +29,16 @@ export async function Sale() {
 
   return (
     <div className="flex items-center gap-4 py-6 text-xl font-bold">
-    <Total sale={formatAmount(daySale)} type="Day Sale">
+    <Total sale={formatAmount(daySale)} type="Day Revenue">
      <SiMoneygram className="text-[3rem] text-[#0369a1]" />
     </Total>
-    <Total sale={formatAmount(totalSale)} type="Total Sale">
+    <Total sale={formatAmount(totalSale)} type="Weekly Revenue">
+      <FaMoneyBills className="text-[3rem] text-[#4338ca]" />
+    </Total>
+    <Total sale={formatAmount(daySale)} type="Total Order">
+     <SiMoneygram className="text-[3rem] text-[#0369a1]" />
+    </Total>
+    <Total sale={formatAmount(totalSale)} type="Total Revenue">
       <FaMoneyBills className="text-[3rem] text-[#4338ca]" />
     </Total>
     </div>

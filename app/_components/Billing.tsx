@@ -260,11 +260,11 @@ export function Billing() {
         <div></div>
       </>
      : <>
-     <div className="flex self-center justify-self-center justify-center items-center">
+     <div className="flex self-center justify-self-center py-[50%] justify-center items-center">
       <p className="py-2 text-red-600">
           <GiEmptyHourglass />
       </p>
-      <p>No item here!</p>
+      <p className="">No item here!</p>
      </div>
     </>
 }     
