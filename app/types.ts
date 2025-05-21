@@ -27,3 +27,20 @@ export type monthKey = {
  totalSales:number,
  sortKey:string
 }
+
+ export type dayResponse = {
+  daySale:number
+  dayItem: {
+    sale: number;
+    day: string;
+    id: string;
+    created_at: Date;
+    typedish: string;
+    quantity: number;
+}[]
+}
+
+export type topSelling = {
+  name:string;
+  order: number
+}

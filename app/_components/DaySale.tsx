@@ -20,7 +20,7 @@ import {
 
 import { IoIosRocket } from "react-icons/io";
 import { getThirtyDaySales, getTotalSale, todaySale } from "../lib/actions";
-import { daySale } from "../types";
+import { daySale, topSelling } from "../types";
 import { Loader } from "../_components/Loader";
 import { DayGraph } from "./DayGraph";
 
@@ -28,32 +28,15 @@ import { DayGraph } from "./DayGraph";
 
 export default function DaySale() {
 
-  const [datas , setDatas] = useState<any>([])
-  const [sortedData , setSorteddata] = useState<any>([])
+  const [sortedData , setSorteddata] = useState<topSelling[]>([])
 
 async function handler(){
-  const responseTotalSale = (await getTotalSale()) || [];
-  setDatas(responseTotalSale)
+  const responseTotalSale : {totalRevenue:number ,topSelling:topSelling[]}  = (await getTotalSale()) || {totalRevenue:0 ,topSelling:[]};
+  setSorteddata(responseTotalSale?.topSelling);
 }
 
-const map:any = []
+console.log(sortedData)
 
-datas?.forEach((item:any)=>{
-map[item?.typedish] ? 
-map[item?.typedish]={...map[item?.typedish], order: map[item.typedish].order + item.quantity} 
-: map[item?.typedish]={name:item?.typedish, order:item?.quantity};
-})
-
-
-function sortedOrder() {
-  const entries = Object.values(map); 
-  // @ts-ignore
-  entries.sort((a, b) => b.order - a.order); 
-
-  setSorteddata(entries)
-}
-
-// sortedOrder()
 
 useEffect(()=>{
   handler()
@@ -65,7 +48,7 @@ useEffect(()=>{
     { name: 'Chicken Fried Rice', value: 200 },
     { name: 'Crispy Chicken', value: 300 },
     { name: 'Paneer Butter Masala ', value: 300 },
-    { name: 'Lemon Coriandor Soup', value: 200 },
+    { name: 'Lemon Coriander Soup', value: 200 },
   ];
   
   const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042','#000', '#00C49F', '#FFBB28', '#FF8042'];
