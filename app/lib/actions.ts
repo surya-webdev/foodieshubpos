@@ -65,8 +65,9 @@ export async function getSale() {
   })
 
   const daySale = res?.reduce((sum, item) => sum +=(item?.sale * item.quantity || 0), 0);
+  const dayOrder = res?.reduce((sum, item) => sum +=(item.quantity || 0), 0);
 
-  return ({daySale , dayItem});
+  return ({daySale , dayItem , dayOrder});
 
   }catch(err){
     console.error("Error while fetching!" , err);
@@ -81,16 +82,16 @@ export async function getTotalSale() {
     const res = await prisma.dashboard.findMany();
 
     const totalRevenue : number = res?.reduce((sum , item) => sum +=(item?.sale * item.quantity || 0), 0); 
-    const totalOrders  : number = res?.reduce((sum , item) => sum +=(item?.quantity|| 0), 0);
+    const totalOrders  : number = res?.reduce((sum , item) => sum +=(item?.quantity || 0), 0);
     
     // TOP SELLING PRODUCTS:
-    const map:topSelling[] = []
+    const map:topSelling[] = [];
 
     res?.forEach((item:any)=>{
      map[item?.typedish] ? 
     map[item?.typedish]={...map[item?.typedish], order: map[item.typedish].order + item.quantity} 
   : map[item?.typedish]={name:item?.typedish, order:item?.quantity};
-    })
+    });
 
     const topSelling = Object.values(map); 
     // @ts-ignore

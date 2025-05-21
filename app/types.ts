@@ -37,7 +37,8 @@ export type monthKey = {
     created_at: Date;
     typedish: string;
     quantity: number;
-}[]
+}[],
+dayOrder:number
 }
 
 export type topSelling = {

@@ -32,7 +32,7 @@ export default function DaySale() {
 
 async function handler(){
   const responseTotalSale : {totalRevenue:number ,topSelling:topSelling[]}  = (await getTotalSale()) || {totalRevenue:0 ,topSelling:[]};
-  setSorteddata(responseTotalSale?.topSelling);
+  setSorteddata(responseTotalSale?.topSelling.slice(0,5));
 }
 
 console.log(sortedData)
@@ -51,7 +51,7 @@ useEffect(()=>{
     { name: 'Lemon Coriander Soup', value: 200 },
   ];
   
-  const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042','#000', '#00C49F', '#FFBB28', '#FF8042'];
+  const COLORS = ['#0088FE' , '#ef4444', '#84cc16', '#22c55e', '#14b8a6', "##a855f7" , '#00C49F', '#FFBB28', '#FF8042'];
   
   const RADIAN = Math.PI / 180;
   // @ts-ignore
@@ -67,7 +67,7 @@ useEffect(()=>{
     );
   };
 
- 
+
   return (
     <>
     <main className="w-full h-[40rem] grid grid-cols-2 justify-between items-center">
@@ -79,21 +79,20 @@ useEffect(()=>{
       <ResponsiveContainer width="100%" height="100%">
         <PieChart width={100} height={140}>
           <Pie
-            data={data}
+            data={sortedData}
             cx="50%"
             cy="50%"
             labelLine={false}
             label={renderCustomizedLabel}
-            innerRadius={80}
+            innerRadius={70}
             fill="#8884d8"
-            dataKey="value"
+            dataKey="order"
             paddingAngle={5}
             >
-            {data.map((entry, index) => (
+            {sortedData.map((entry, index) => (
               <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
             ))}
           </Pie>
-          <Tooltip/>
           <Tooltip/>
           <Legend
             verticalAlign="bottom"
