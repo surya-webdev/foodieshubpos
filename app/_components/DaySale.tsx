@@ -19,7 +19,7 @@ import {
 } from "recharts";
 
 import { IoIosRocket } from "react-icons/io";
-import { getThirtyDaySales, todaySale } from "../lib/actions";
+import { getThirtyDaySales, getTotalSale, todaySale } from "../lib/actions";
 import { daySale } from "../types";
 import { Loader } from "../_components/Loader";
 import { DayGraph } from "./DayGraph";
@@ -28,14 +28,47 @@ import { DayGraph } from "./DayGraph";
 
 export default function DaySale() {
 
+  const [datas , setDatas] = useState<any>([])
+  const [sortedData , setSorteddata] = useState<any>([])
+
+async function handler(){
+  const responseTotalSale = (await getTotalSale()) || [];
+  setDatas(responseTotalSale)
+}
+
+const map:any = []
+
+datas?.forEach((item:any)=>{
+map[item?.typedish] ? 
+map[item?.typedish]={...map[item?.typedish], order: map[item.typedish].order + item.quantity} 
+: map[item?.typedish]={name:item?.typedish, order:item?.quantity};
+})
+
+
+function sortedOrder() {
+  const entries = Object.values(map); 
+  // @ts-ignore
+  entries.sort((a, b) => b.order - a.order); 
+
+  setSorteddata(entries)
+}
+
+// sortedOrder()
+
+useEffect(()=>{
+  handler()
+})
   const data = [
-    { name: 'Group A', value: 400 },
-    { name: 'Group B', value: 300 },
-    { name: 'Group C', value: 300 },
-    { name: 'Group D', value: 200 },
+    { name: 'Chicken Biryani', value: 400 },
+    { name: 'Butter Naan', value: 300 },
+    { name: 'Tandoori', value: 300 },
+    { name: 'Chicken Fried Rice', value: 200 },
+    { name: 'Crispy Chicken', value: 300 },
+    { name: 'Paneer Butter Masala ', value: 300 },
+    { name: 'Lemon Coriandor Soup', value: 200 },
   ];
   
-  const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
+  const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042','#000', '#00C49F', '#FFBB28', '#FF8042'];
   
   const RADIAN = Math.PI / 180;
   // @ts-ignore
@@ -58,7 +91,7 @@ export default function DaySale() {
        <DayGraph/>
     <aside className="w-full h-full flex flex-col justify-between items-center">
      <div>
-      <p>SELLING ITEM</p>
+      <p className="font-bold text-2xl ">Top Selling Item</p>
     </div>  
       <ResponsiveContainer width="100%" height="100%">
         <PieChart width={100} height={140}>
@@ -68,7 +101,7 @@ export default function DaySale() {
             cy="50%"
             labelLine={false}
             label={renderCustomizedLabel}
-            innerRadius={120}
+            innerRadius={80}
             fill="#8884d8"
             dataKey="value"
             paddingAngle={5}

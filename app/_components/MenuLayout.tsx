@@ -6,7 +6,6 @@ import { useItem } from "../lib/ItemContexts";
 
 export function MenuLayout(props: { item: itemTypes }) {
   const [isQuantity, setIsQuantity] = useState(1);
-  // type , id
   const { addItem } = useItem();
   const { name, price } = props.item;
 

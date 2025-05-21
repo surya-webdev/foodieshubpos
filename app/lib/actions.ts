@@ -52,7 +52,22 @@ export async function getSale() {
         day: new Date(formattedDate),
       },
     });
-    return res;
+  const dayItem = res?.map((item) => {
+    return {
+      ...item,
+      sale:item.sale * item.quantity,
+      day: item?.day.toLocaleString("en-US",{
+        day:"2-digit",
+        month:"long",
+        // year:"numeric"
+      }),
+    };
+  })
+
+  const daySale = res?.reduce((sum, item) => sum +=(item?.sale * item.quantity || 0), 0);
+
+  return ({daySale , dayItem});
+  return res;
   }catch(err){
     console.error("Error while fetching!" , err);
   }

@@ -4,9 +4,21 @@ import { IoIosRocket } from "react-icons/io"
 import { Area, CartesianGrid, ComposedChart, Legend, Line, Tooltip, XAxis, YAxis } from "recharts"
 import { Loader } from "./Loader";
 import { useEffect, useState } from "react";
-import { todaySale } from "../lib/actions";
+import { getSale, todaySale } from "../lib/actions";
 import { daySale } from "../types";
 
+
+type dayResponse = {
+  daySale:number
+  dayItem: {
+    sale: number;
+    day: string;
+    id: string;
+    created_at: Date;
+    typedish: string;
+    quantity: number;
+}[]
+}
 
 export function DayGraph(){
 
@@ -16,22 +28,23 @@ export function DayGraph(){
    async function handler() {
       try {
         setIsLoading(true);
-        const response = await todaySale();
+        const response : dayResponse = (await getSale()) ||  { daySale: 0, dayItem: [] };
         // const res = await getThirtyDaySales({days:7});
         console.log(response )
         // @ts-ignore
         setIsData(() => 
-          response?.map((item) => {
-            return {
-              ...item,
-              sale:item.sale * item.quantity,
-              day: item?.day.toLocaleString("en-US",{
-                day:"2-digit",
-                month:"long",
-                // year:"numeric"
-              }),
-            };
-          }),
+          response?.dayItem
+          // response?.map((item) => {
+          //   return {
+          //     ...item,
+          //     sale:item.sale * item.quantity,
+          //     day: item?.day.toLocaleString("en-US",{
+          //       day:"2-digit",
+          //       month:"long",
+          //       // year:"numeric"
+          //     }),
+          //   };
+          // }),
         );
   
       } catch (error) {
