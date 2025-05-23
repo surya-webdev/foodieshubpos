@@ -4,6 +4,8 @@ import { endOfDay, startOfDay, subDays } from "date-fns";
 
 import { itemTypes, monthKey, topSelling } from "../types";
 import prisma from "./db";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 export async function getStarter() {
   try {
@@ -243,4 +245,18 @@ try{
     console.error("Error",error);
     return {status:false}
   }
+}
+
+
+export async function logout(){
+  // @ts-ignore
+  const cookieStore = cookies();
+  // @ts-ignore
+   const cookie = cookieStore.get("pos-token");
+   if(cookie?.value){
+     cookieStore.delete("pos-token")
+     redirect("/")
+   }
+   console.log(cookie)
+   return 0;
 }

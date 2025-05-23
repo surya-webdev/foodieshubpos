@@ -32,7 +32,7 @@ export default function DaySale() {
 
 async function handler(){
   const responseTotalSale : {totalRevenue:number ,topSelling:topSelling[]}  = (await getTotalSale()) || {totalRevenue:0 ,topSelling:[]};
-  setSorteddata(responseTotalSale?.topSelling.slice(0,5));
+  setSorteddata(responseTotalSale?.topSelling.slice(0,10));
 }
 
 console.log(sortedData)
@@ -70,7 +70,7 @@ useEffect(()=>{
 
   return (
     <>
-    <main className="w-full h-[40rem] grid grid-cols-2 justify-between items-center">
+    <main className="w-full h-[90rem] grid grid-cols-1 justify-between items-center">
        <DayGraph/>
     <aside className="w-full h-full flex flex-col justify-between items-center">
      <div>
@@ -84,7 +84,7 @@ useEffect(()=>{
             cy="50%"
             labelLine={false}
             label={renderCustomizedLabel}
-            innerRadius={70}
+            // innerRadius={100}
             fill="#8884d8"
             dataKey="order"
             paddingAngle={5}
@@ -95,9 +95,9 @@ useEffect(()=>{
           </Pie>
           <Tooltip/>
           <Legend
-            verticalAlign="bottom"
-            align="center"
-            layout="vertical"
+            verticalAlign="middle"
+            align="right"
+            layout="radial"
             iconType="circle"
             />
         </PieChart>

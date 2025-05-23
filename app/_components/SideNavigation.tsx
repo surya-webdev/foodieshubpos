@@ -11,6 +11,8 @@ import { GiHotSpices } from "react-icons/gi";
 import { TbSoupFilled } from "react-icons/tb";
 import { MdAnalytics } from "react-icons/md";
 import { FaUserAlt } from "react-icons/fa";
+import { LuLogOut } from "react-icons/lu";
+import { logout } from "../lib/actions";
 
 export function SideNavigation() {
   const [isOpen, setIsOpen] = useState(true);
@@ -24,7 +26,7 @@ export function SideNavigation() {
         </Link>
       </div>
 
-      <ul className="flex flex-col gap-2">
+      <ul className="flex flex-col h-full gap-2">
         {/*  */}
         <li className="rounded-lg px-4 py-2 text-[1.4rem]">
           <Link
@@ -114,8 +116,23 @@ export function SideNavigation() {
               </div>
             </Link>
           </li>
+          
         </>
       </ul>
+
+      <div className="w-full rounded-lg px-4 py-2 text-[1.2rem] justify-self-end self-center">
+            <button
+              onClick={()=>logout()}
+              className="flex items-center justify-between gap-4 rounded-lg px-2 py-1 text-red-500 transition-all hover:bg-slate-300"
+            >
+              <div className="flex items-center justify-center text-red-500 gap-2">
+                <span className="block">
+                  <LuLogOut />
+                </span>
+                <span className="block text-red-500  font-medium">LogOut</span>
+              </div>
+            </button>
+          </div>
     </aside>
   );
 }
