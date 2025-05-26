@@ -1,5 +1,5 @@
 "use client";
-
+import { useRouter } from 'next/navigation';
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -13,9 +13,30 @@ import { MdAnalytics } from "react-icons/md";
 import { FaUserAlt } from "react-icons/fa";
 import { LuLogOut } from "react-icons/lu";
 import { logout } from "../lib/actions";
+import { redirect } from "next/navigation";
 
 export function SideNavigation() {
   const [isOpen, setIsOpen] = useState(true);
+  const router = useRouter();
+
+  const  [isLoading , setIsLoading] = useState<boolean>(false)
+;
+ async function handler(){
+  setIsLoading(false);
+  try{
+    const response = await logout();
+    if(response){
+      router.push("/signin")
+    }
+  }catch(error){
+  console.error(error);
+
+  }finally{
+   setIsLoading(false);
+  }
+
+}
+
 
   return (
     <aside className="fixed flex h-screen w-[16rem] flex-col rounded-lg border border-[#dcdcdc] bg-[#ffffff] px-2 py-10">
@@ -122,7 +143,8 @@ export function SideNavigation() {
 
       <div className="w-full rounded-lg px-4 py-2 text-[1.2rem] justify-self-end self-center">
             <button
-              onClick={()=>logout()}
+            disabled={isLoading}
+              onClick={()=>handler()}
               className="flex items-center justify-between gap-4 rounded-lg px-2 py-1 text-red-500 transition-all hover:bg-slate-300"
             >
               <div className="flex items-center justify-center text-red-500 gap-2">

@@ -255,8 +255,8 @@ export async function logout(){
    const cookie = cookieStore.get("pos-token");
    if(cookie?.value){
      cookieStore.delete("pos-token")
-     redirect("/")
+    return true
    }
-   console.log(cookie)
-   return 0;
+  //  console.log(cookie)
+   return false;
 }

@@ -35,7 +35,7 @@ async function handler(){
   setSorteddata(responseTotalSale?.topSelling.slice(0,10));
 }
 
-console.log(sortedData)
+// console.log(sortedData)
 
 
 useEffect(()=>{
@@ -70,7 +70,7 @@ useEffect(()=>{
 
   return (
     <>
-    <main className="w-full h-[90rem] grid grid-cols-1 justify-between items-center">
+    <main className="w-full h-[90rem] grid grid-cols-2 justify-between items-center">
        <DayGraph/>
     <aside className="w-full h-full flex flex-col justify-between items-center">
      <div>
@@ -94,12 +94,12 @@ useEffect(()=>{
             ))}
           </Pie>
           <Tooltip/>
-          <Legend
+          {/* <Legend
             verticalAlign="middle"
             align="right"
             layout="radial"
             iconType="circle"
-            />
+            /> */}
         </PieChart>
       </ResponsiveContainer>  
     </aside>

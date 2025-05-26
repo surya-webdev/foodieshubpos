@@ -30,7 +30,7 @@ export function DayGraph(){
         setIsLoading(true);
         const response : dayResponse = (await getSale()) ||  { daySale: 0, dayItem: [] };
         // const res = await getThirtyDaySales({days:7});
-        console.log(response )
+        // console.log(response )
         // @ts-ignore
         setIsData(() => 
           response?.dayItem
