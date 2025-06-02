@@ -35,7 +35,7 @@ export default function RootLayout({
        <Motion>
         <ToastContainer />
         <ItemProvide>
-          <div>{children}</div>
+          <div className="font-pop text-black bg-[#ffffff]">{children}</div>
         </ItemProvide>
        </Motion>
       </body>

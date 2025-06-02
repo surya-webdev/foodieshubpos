@@ -1,26 +1,34 @@
 "use client";
-import { useRouter } from 'next/navigation';
-import { useState } from "react";
+
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname, useRouter } from 'next/navigation';
+import { useState } from "react";
 
-import { FaMoneyBillTrendUp } from "react-icons/fa6";
-import { IoIosArrowDropdownCircle } from "react-icons/io";
-import { MdStart } from "react-icons/md";
-import { GiHotSpices } from "react-icons/gi";
-import { TbSoupFilled } from "react-icons/tb";
-import { MdAnalytics } from "react-icons/md";
 import { FaUserAlt } from "react-icons/fa";
+import { FaMoneyBillTrendUp } from "react-icons/fa6";
+import { GiHotSpices } from "react-icons/gi";
+import { IoIosArrowDropdownCircle } from "react-icons/io";
 import { LuLogOut } from "react-icons/lu";
+import { MdAnalytics, MdStart } from "react-icons/md";
+import { TbSoupFilled } from "react-icons/tb";
 import { logout } from "../lib/actions";
-import { redirect } from "next/navigation";
+
+const navList = [
+  {id:1, icon:<TbSoupFilled/>, name:"Soup" , link:"/food/soups"},
+  {id:2, icon:<MdStart/>, name:"Starter" , link:"/food/starters"},
+  {id:3, icon:<GiHotSpices/>, name:"Main Course" , link:"/food/main"},
+  {id:4, icon:<MdAnalytics/>, name:"Dashboard" , link:"/dashboard"},
+  {id:5, icon:<FaUserAlt/>, name:"User" , link:"/user"},
+];
+
 
 export function SideNavigation() {
   const [isOpen, setIsOpen] = useState(true);
   const router = useRouter();
+  const pathname = usePathname()
+  const  [isLoading , setIsLoading] = useState<boolean>(false);
 
-  const  [isLoading , setIsLoading] = useState<boolean>(false)
-;
  async function handler(){
   setIsLoading(false);
   try{
@@ -37,115 +45,57 @@ export function SideNavigation() {
 
 }
 
-
   return (
-    <aside className="fixed flex h-screen w-[16rem] flex-col rounded-lg border border-[#dcdcdc] bg-[#ffffff] px-2 py-10">
+    <aside className="fixed flex h-screen w-[16rem] flex-col rounded-lg border border-[#dcdcdc] text-black bg-[#ffffff] px-2 py-10">
       <div className="flex items-center justify-center">
         <Image src="/logo.png" width={100} height={100} alt="logo" />
-        <Link href="/" className="blog text-lg font-bold">
-          Foodie&apos;s Hub
-        </Link>
+        <Link href="/" className="blog text-primary text-lg font-bold">
+        Murugan Hotel
+       </Link>
       </div>
 
-      <ul className="flex flex-col h-full gap-2">
+      <ul className="flex flex-col h-full gap-2 transition-all duration-75 ease-in-out">
         {/*  */}
-        <li className="rounded-lg px-4 py-2 text-[1.4rem]">
+        <li className="rounded-lg px-4 py-2 text-[1.4rem] font-medium">
           <Link
             onClick={() => setIsOpen(() => !isOpen)}
-            className="flex items-center justify-between gap-4 rounded-lg px-2 py-1 text-[#000000] hover:bg-slate-300"
+            className={` ${pathname === '/' ? 'bg-sec' : ''} flex items-center justify-between gap-4 rounded-lg px-2 py-1 text-[#000000] hover:bg-sec`}
             href={"/"}
           >
             <div className="flex items-center justify-center gap-2">
               <span className="block">
                 <FaMoneyBillTrendUp />
               </span>
-              <span className="block">foods</span>
+              <span className="block">Foods</span>
             </div>
             <IoIosArrowDropdownCircle className="text-lg" />
           </Link>
         </li>
-
-        <li className="rounded-lg px-4 py-2 text-[1.2rem]">
-          <Link
-            onClick={() => setIsOpen(() => !isOpen)}
-            className="flex items-center justify-between gap-4 rounded-lg px-2 py-1 text-[#000000] transition-all hover:bg-slate-300"
-            href={"/food/soups"}
-          >
-            <div className="flex items-center justify-center gap-2">
-              <span className="block">
-                <TbSoupFilled />
-              </span>
-              <span className="block font-medium">Soups</span>
-            </div>
-          </Link>
-        </li>
-
         <>
-          <li className="rounded-lg px-4 py-2 text-[1.2rem]">
+        {navList.map((item) => {
+          return <li className="rounded-lg px-4 py-2 text-[1.2rem]">
             <Link
               onClick={() => setIsOpen(() => !isOpen)}
-              className="flex items-center justify-between gap-4 rounded-lg px-2 py-1 text-[#000000] transition-all duration-500 hover:bg-slate-300"
-              href={"/food/starters"}
+              className={` ${pathname === item.link ? "bg-sec" : ""} flex items-center justify-between gap-4 rounded-lg px-2 py-1 text-[#000000] transition-all duration-500`}
+              href={item.link}
             >
               <div className="flex items-center justify-center gap-2">
                 <span className="block">
-                  <MdStart />
+                  {item.icon}
                 </span>
-                <span className="block font-medium">Starters</span>
+                <span className="block font-medium">{item.name}</span>
               </div>
             </Link>
           </li>
-          <li className="rounded-lg px-4 py-2 text-[1.2rem]">
-            <Link
-              onClick={() => setIsOpen(() => !isOpen)}
-              className="flex items-center justify-between gap-4 rounded-lg px-2 py-1 text-[#000000] transition-all hover:bg-slate-300"
-              href={"/food/main"}
-            >
-              <div className="flex items-center justify-center gap-2">
-                <span className="block">
-                  <GiHotSpices />
-                </span>
-                <span className="block font-medium">Main Course</span>
-              </div>
-            </Link>
-          </li>
-          <li className="rounded-lg px-4 py-2 text-[1.2rem]">
-            <Link
-              onClick={() => setIsOpen(() => !isOpen)}
-              className="flex items-center justify-between gap-4 rounded-lg px-2 py-1 text-[#000000] transition-all hover:bg-slate-300"
-              href={"/dashboard"}
-            >
-              <div className="flex items-center justify-center gap-2">
-                <span className="block">
-                  <MdAnalytics />
-                </span>
-                <span className="block font-medium">Dashboard</span>
-              </div>
-            </Link>
-          </li>
-           <li className="rounded-lg px-4 py-2 text-[1.2rem] justify-between">
-            <Link
-              onClick={() => setIsOpen(() => !isOpen)}
-              className="flex items-center justify-between gap-4 rounded-lg px-2 py-1 text-[#000000] transition-all hover:bg-slate-300"
-              href={"/dashboard"}
-            >
-              <div className="flex items-center justify-center gap-2">
-                <span className="block">
-                  <FaUserAlt />
-                </span>
-                <span className="block font-medium">User</span>
-              </div>
-            </Link>
-          </li>
-          
+        })}
         </>
       </ul>
 
-      <div className="w-full rounded-lg px-4 py-2 text-[1.2rem] justify-self-end self-center">
+        <div className="w-full rounded-lg px-4 py-2 text-[1.2rem] justify-self-end self-center hover:bg-sec duration-75 ease-in-out transition-all">
             <button
             disabled={isLoading}
               onClick={()=>handler()}
-              className="flex items-center justify-between gap-4 rounded-lg px-2 py-1 text-red-500 transition-all hover:bg-slate-300"
+              className="flex items-center justify-between gap-4 rounded-lg px-2 py-1 text-red-500 transition-all"
             >
               <div className="flex items-center justify-center text-red-500 gap-2">
                 <span className="block">

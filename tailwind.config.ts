@@ -8,8 +8,13 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily:{
+        pop:["Poppins", "sans-serif"],
+        robo:["Roboto", "sans-serif"],
+      },
       colors: {
-        background: "var(--background)",
+        primary: "var(--background)",
+        sec:"var(--sec)",
         foreground: "var(--foreground)",
       },
     },

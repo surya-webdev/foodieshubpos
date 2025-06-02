@@ -65,7 +65,7 @@ export function DayGraph(){
   
     if(!isData.length) return <div className="w-full h-full flex justify-center items-center font-bold text-2xl my-5">Sale is not started yet!!</div>
   
-console.log(isData)
+// console.log(isData)
   return <>
    <aside className="flex flex-col justify-center items-center w-full h-full">
             <article className="flex justify-center items-center gap-2 font-bold text-2xl my-5">
@@ -94,7 +94,7 @@ console.log(isData)
           </AreaChart>
         </ResponsiveContainer> */}
 
-            <ComposedChart width={700} height={500} data={isData}>
+            <ComposedChart width={1000} height={500} data={isData}>
              <XAxis label={""} dataKey="day" />
              <YAxis dataKey='sale' />
              <Tooltip />

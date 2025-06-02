@@ -3,7 +3,7 @@ import { SideNavigation } from "../_components/SideNavigation";
 import { SaleContext } from "../lib/SaleContext";
 
 
-export const revalidate = 0;
+export const revalidate = 365000;
 
 export default function RootLayout({
   children,
@@ -12,11 +12,11 @@ export default function RootLayout({
 }) {
   return (
     <SaleContext>
-    <div className="grid grid-cols-[16rem_1fr]">
+    <div className="grid grid-cols-[16rem_1fr] ">
       <div>
         <SideNavigation></SideNavigation>
       </div>
-      <div className="flex flex-col gap-10 p-10 w-full h-screen overflow-x-hidden overflow-y-scroll">
+      <div className="flex flex-col gap-10 p-10 w-full h-screen bg-white overflow-x-hidden overflow-y-scroll">
         <Sale></Sale>
         {children}
       </div>

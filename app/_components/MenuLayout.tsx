@@ -30,7 +30,7 @@ export function MenuLayout(props: { item: itemTypes }) {
             setIsQuantity(1)
           }
           }
-          className="text-md rounded-lg bg-[#d6651f] px-6 font-bold text-black"
+          className="text-md rounded-lg bg-primary px-6 font-bold text-black"
         >
           Add
         </button>

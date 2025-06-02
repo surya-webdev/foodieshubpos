@@ -31,22 +31,26 @@ export async function Sale() {
   if (responseTodaySale?.daySale < 0 || totalSale < 0) return <p className="text-3xl">No Data</p>;
 
   return (
-    <div className="grid grid-cols-4 items-center gap-4 py-6 text-xl font-bold">
+    <div className="grid grid-cols-3 items-center gap-4 py-6 text-xl font-bold">
     <Total sale={formatAmount(daySale)} type="Day Revenue">
      <SiMoneygram className="text-[3rem] text-[#0369a1]" />
     </Total>
     <Total sale={String(dayOrder)} type="Day Order">
      <SiMoneygram className="text-[3rem] text-[#0369a1]" />
     </Total>
-    <Total sale={formatAmount(totalSale)} type="Weekly Revenue">
-      <FaMoneyBills className="text-[3rem] text-[#4338ca]" />
-    </Total>
-    <Total sale={formatAmount(totalSale)} type="Total Revenue">
-      <FaMoneyBills className="text-[3rem] text-[#4338ca]" />
-    </Total>
     <Total sale={String(totalOrder)} type="Total Order">
      <SiMoneygram className="text-[3rem] text-[#0369a1]" />
     </Total>
+    {/* <div className="row-span-full self-center justify-items-center"> */}
+    <Total sale={formatAmount(totalSale)} type="Weekly Revenue">
+      <FaMoneyBills className="text-[3rem] text-[#4338ca]" />
+    </Total>
+    {/* </div> */}
+    {/* <div className="row-span-full self-center justify-items-center"> */}
+    <Total sale={formatAmount(totalSale)} type="Total Revenue">
+      <FaMoneyBills className="text-[3rem] text-[#4338ca]" />
+    </Total>
+    {/* </div> */}
     </div>
   );
 }

@@ -2,26 +2,16 @@
 
 import { useEffect, useState } from "react";
 import {
-  Area,
-  Bar,
-  CartesianGrid,
   Cell,
-  ComposedChart,
   Legend,
-  Line,
-  LineChart,
   Pie,
   PieChart,
   ResponsiveContainer,
-  Tooltip,
-  XAxis,
-  YAxis,
+  Tooltip
 } from "recharts";
 
-import { IoIosRocket } from "react-icons/io";
-import { getThirtyDaySales, getTotalSale, todaySale } from "../lib/actions";
-import { daySale, topSelling } from "../types";
-import { Loader } from "../_components/Loader";
+import { getTotalSale } from "../lib/actions";
+import { topSelling } from "../types";
 import { DayGraph } from "./DayGraph";
 
 
@@ -34,9 +24,6 @@ async function handler(){
   const responseTotalSale : {totalRevenue:number ,topSelling:topSelling[]}  = (await getTotalSale()) || {totalRevenue:0 ,topSelling:[]};
   setSorteddata(responseTotalSale?.topSelling.slice(0,10));
 }
-
-// console.log(sortedData)
-
 
 useEffect(()=>{
   handler()
@@ -70,14 +57,15 @@ useEffect(()=>{
 
   return (
     <>
-    <main className="w-full h-[90rem] grid grid-cols-2 justify-between items-center">
+    {/* h-[90rem] */}
+    <main className="w-full h-[90rem] grid grid-cols-1 justify-between items-center">
        <DayGraph/>
     <aside className="w-full h-full flex flex-col justify-between items-center">
      <div>
-      <p className="font-bold text-2xl ">Top Selling Item</p>
+      <p className="font-bold text-2xl">Top Selling Item</p>
     </div>  
       <ResponsiveContainer width="100%" height="100%">
-        <PieChart width={100} height={140}>
+        <PieChart width={100} height={100}>
           <Pie
             data={sortedData}
             cx="50%"
@@ -94,12 +82,12 @@ useEffect(()=>{
             ))}
           </Pie>
           <Tooltip/>
-          {/* <Legend
+          <Legend
             verticalAlign="middle"
             align="right"
             layout="radial"
             iconType="circle"
-            /> */}
+            />
         </PieChart>
       </ResponsiveContainer>  
     </aside>
