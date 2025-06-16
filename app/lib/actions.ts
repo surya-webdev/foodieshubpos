@@ -19,6 +19,55 @@ export async function getStarter() {
   }
 }
 
+export async function getGravy() {
+  
+  try {
+    const data = await prisma.gravy.findMany();
+
+    if (!data) throw new Error("NO DATA");
+    return data;
+  } catch (err) {
+    console.error("error", err);
+  }
+}
+
+export async function getBiriyani() {
+  
+  try {
+    const data = await prisma.biriyani.findMany();
+
+    if (!data) throw new Error("NO DATA");
+    return data;
+  } catch (err) {
+    console.error("error", err);
+  }
+}
+
+export async function getBreads() {
+  
+  try {
+    const data = await prisma.bread.findMany();
+
+    if (!data) throw new Error("NO DATA");
+    return data;
+  } catch (err) {
+    console.error("error", err);
+  }
+}
+
+export async function getBbqCourse() {
+  
+  try {
+    const data = await prisma.bbq.findMany();
+
+    if (!data) throw new Error("NO DATA");
+    return data;
+  } catch (err) {
+    console.error("error", err);
+  }
+}
+
+
 export async function getMainCourse() {
   try {
     const data = await prisma.maincourse.findMany();

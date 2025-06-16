@@ -2,7 +2,7 @@ import { Billing } from "../_components/Billing";
 import { SideNavigation } from "../_components/SideNavigation";
 
 
-// export const revalidate = 0;
+export const revalidate = 21600;
 
 export default function RootLayout({
   children,

@@ -51,7 +51,7 @@ const [isMonth , setIsMonth] = useState<number>(120);
     return <Loader />;
   }
 
-  if(isData.length == 0 || !isData ) return <div className="w-full h-full flex justify-center items-center font-bold text-2xl my-5">Sale is not started yet!!</div>
+  if(isData?.length == 0 || !isData ) return <div className="w-full h-full flex justify-center items-center font-bold text-2xl my-5">Sale is not started yet!!</div>
 
   return (
     <>
