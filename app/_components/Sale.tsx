@@ -13,13 +13,11 @@ export async function Sale() {
   const responseTotalSale : {totalRevenue:number ,topSelling:topSelling[] , totalOrders: number }  = (await getTotalSale()) || {totalRevenue:0 ,topSelling:[] , totalOrders : 0};
   const responseTodaySale :dayResponse = (await getSale()) || { daySale: 0, dayItem: [] , dayOrder:0 };
 
-
   function formatAmount(num:number){
     const formattedAmount = new Intl.NumberFormat('en-IN', {
       style: 'currency',
       currency: 'INR'
     }).format(num);
-
     return formattedAmount
   }
 
@@ -41,16 +39,12 @@ export async function Sale() {
     <Total sale={String(totalOrder)} type="Total Order">
      <SiMoneygram className="text-[3rem] text-[#0369a1]" />
     </Total>
-    {/* <div className="row-span-full self-center justify-items-center"> */}
     <Total sale={formatAmount(totalSale)} type="Weekly Revenue">
       <FaMoneyBills className="text-[3rem] text-[#4338ca]" />
     </Total>
-    {/* </div> */}
-    {/* <div className="row-span-full self-center justify-items-center"> */}
     <Total sale={formatAmount(totalSale)} type="Total Revenue">
       <FaMoneyBills className="text-[3rem] text-[#4338ca]" />
     </Total>
-    {/* </div> */}
     </div>
   );
 }

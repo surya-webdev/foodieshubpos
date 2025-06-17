@@ -18,7 +18,7 @@ import { DayGraph } from "./DayGraph";
 
 export default function DaySale() {
 
-  const [sortedData , setSorteddata] = useState<topSelling[]>([])
+const [sortedData , setSorteddata] = useState<topSelling[]>([])
 
 async function handler(){
   const responseTotalSale : {totalRevenue:number ,topSelling:topSelling[]}  = (await getTotalSale()) || {totalRevenue:0 ,topSelling:[]};
@@ -27,7 +27,8 @@ async function handler(){
 
 useEffect(()=>{
   handler()
-})
+},[])
+
   const data = [
     { name: 'Chicken Biryani', value: 400 },
     { name: 'Butter Naan', value: 300 },

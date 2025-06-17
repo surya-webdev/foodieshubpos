@@ -13,6 +13,17 @@ if(!soldItem || soldItem.length == 0){
 }
 
 try{
+  await prisma.order.upsert({
+    where: { id: "1" },
+    update: {
+      order: { increment: 1 }
+    },
+    create: {
+      id: "1",
+      order: 0
+    }
+  });
+  
   await Promise.all(
   soldItem.map(async (item :itemTypes) => {
     const response = await prisma.dashboard.create({

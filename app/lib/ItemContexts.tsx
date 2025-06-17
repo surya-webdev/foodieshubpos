@@ -26,7 +26,6 @@ export function ItemProvide({ children }: { children: React.ReactNode }) {
 
   function addItem(item: itemTypes) {
     if (!item) return;
-
     setIsItem((prevItem) => [...prevItem, item]);
   }
 

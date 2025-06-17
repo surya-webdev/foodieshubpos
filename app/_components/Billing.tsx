@@ -9,9 +9,9 @@ import { GiEmptyHourglass } from "react-icons/gi";
 
 import { apiResponse, itemTypes } from "../types";
 import { useItem } from "../lib/ItemContexts";
-import { billUpload } from "../lib/actions";
+import { billUpload, getCurrentOrder } from "../lib/actions";
 import { useState } from "react";
-
+import prisma from "../lib/db";
 
 
 export function Billing() {
@@ -31,22 +31,28 @@ export function Billing() {
   }
 
   async function printHandler() {
-
+  
     setIsLoading(true)
     if (isItem.length === 0 && !total) {
       return;
     }
+    
     try {
+      const order = await getCurrentOrder();
+
       const res = await axios.post("http://localhost:3001/print",{
         items: isItem,
         totalPrice: total,
+        order:order?.order
       });
 
 
       if (res.data.message == "success") {
+
        const response : apiResponse = await axios.post("/api/upload",{soldItem:isItem});
+
        if(response.data.status == true){
-        reset();
+         reset();
          toast.success("Sucessfully added to the database", {
           position: "top-right",
           autoClose: 5000,
@@ -77,7 +83,7 @@ export function Billing() {
     } catch (error) {
       console.error("Error Message", error);
        toast.error(
-                   "Please Connect your printer!",
+                   "Please Connect your printer! or Error while fetching",
                    {
                      position: "top-right",
                      autoClose: 5000,
@@ -100,8 +106,11 @@ export function Billing() {
     if (isItem.length === 0 && !total) {
       return;
     }
+
+
     try{
       const response : apiResponse = await axios.post("/api/upload",{soldItem:isItem});
+
       if(response.data.status == true){
         reset();
         toast.success("Sucessfully added to the database", {
@@ -131,7 +140,7 @@ export function Billing() {
       }catch (error) {
       console.error("Error Message", error);
        toast.error(
-                   "Please Connect your printer!",
+                   "Something Wrong with the database!",
                    {
                      position: "top-right",
                      autoClose: 5000,

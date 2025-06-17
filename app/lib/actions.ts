@@ -19,6 +19,21 @@ export async function getStarter() {
   }
 }
 
+export async function getCurrentOrder(){
+
+  try {
+ const order = await prisma.order.findUnique({
+  where:{
+    id:"1"
+  }
+ }) ?? {id:"1",order:1};
+return order;
+  }catch(err){
+    console.error(err,"Error while fetching!")
+  }
+
+}
+
 export async function getGravy() {
   
   try {
@@ -129,6 +144,7 @@ export async function getSale() {
 // Total Sale
 
 export async function getTotalSale() {
+
   try{
     const res = await prisma.dashboard.findMany();
 
@@ -142,6 +158,7 @@ export async function getTotalSale() {
      map[item?.typedish] ? 
     map[item?.typedish]={...map[item?.typedish], order: map[item.typedish].order + item.quantity} 
   : map[item?.typedish]={name:item?.typedish, order:item?.quantity};
+  
     });
 
     const topSelling = Object.values(map); 

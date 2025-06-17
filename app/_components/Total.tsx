@@ -1,9 +1,6 @@
 "use client";
-import { GrView } from "react-icons/gr";
-
 
 import { useState } from "react";
-import { BiSolidHide } from "react-icons/bi";
 
 
 export function Total({children,sale,type}:{children:React.ReactNode, sale:string ,type:string}){

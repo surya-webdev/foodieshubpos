@@ -95,5 +95,8 @@ model gravy {
 }
 
 
-
+model order{
+  id         String       @id @default(uuid())
+  order      Int          @default(0)
+}
 
