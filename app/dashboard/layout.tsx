@@ -3,7 +3,7 @@ import { SideNavigation } from "../_components/SideNavigation";
 import { SaleContext } from "../lib/SaleContext";
 
 
-export const revalidate = 600;
+export const revalidate = 200;
 
 export default function RootLayout({
   children,
