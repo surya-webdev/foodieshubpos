@@ -25,7 +25,7 @@ export function Billing() {
 
   const orderTypes = ["Dine-in", "Parcel"]
   const paymentStatuses = ["Paid", "Not Paid"]
-  const paymentModes = ["UPI", "Cash"]
+  const paymentModes = ["UPI", "Cash" , "Yet to Pay"]
 
   function reset() {
     resetItem();
@@ -250,7 +250,7 @@ export function Billing() {
             </button>
           </div>
 
-    <div className="order-info bg-white rounded-md p-4 mt-4 shadow-sm flex justify-between items-center">
+    <div className="order-info bg-white rounded-md p-4 mt-4 shadow-sm flex gap-6 justify-between items-center">
       <div className="space-y-6">
         {/* Order Type Buttons */}
         <div className="space-y-2">
