@@ -2,22 +2,30 @@
 
 
 import axios from "axios";
-import { toast } from "react-toastify";
-import { TiDelete } from "react-icons/ti";
-import "react-toastify/dist/ReactToastify.css";
 import { GiEmptyHourglass } from "react-icons/gi";
+import { TiDelete } from "react-icons/ti";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-import { apiResponse, itemTypes } from "../types";
-import { useItem } from "../lib/ItemContexts";
-import { billUpload, getCurrentOrder } from "../lib/actions";
 import { useState } from "react";
-import prisma from "../lib/db";
+import { useItem } from "../lib/ItemContexts";
+import { getCurrentOrder } from "../lib/actions";
+import { apiResponse, itemTypes } from "../types";
 
 
 export function Billing() {
 
-  const { isItem, removeItem, resetItem } = useItem();
+
+  const { isItem, removeItem, resetItem } = useItem();  
   const [isLoading , setIsLoading] = useState<boolean>(false)
+
+  const [orderType, setOrderType] = useState("Parcel")
+  const [paymentStatus, setPaymentStatus] = useState("Paid")
+  const [paymentMode, setPaymentMode] = useState("UPI")
+
+  const orderTypes = ["Dine-in", "Parcel"]
+  const paymentStatuses = ["Paid", "Not Paid"]
+  const paymentModes = ["UPI", "Cash"]
 
   function reset() {
     resetItem();
@@ -43,7 +51,10 @@ export function Billing() {
       const res = await axios.post("http://localhost:3001/print",{
         items: isItem,
         totalPrice: total,
-        order:order?.order
+        order:order?.order,
+        orderType,
+        payStatus:paymentStatus,
+        payMode:paymentMode
       });
 
 
@@ -187,8 +198,8 @@ export function Billing() {
   }
 
  return (
-  
-  <div className="flex flex-col justify-between bg-slate-50 px-4 py-6 font-bold overflow-y-scroll">
+
+  <div className="flex flex-col justify-between px-4 py-6 font-bold overflow-y-scroll">
      {isItem.length > 0  ?
      <>
         <div>
@@ -227,19 +238,98 @@ export function Billing() {
           <div className="my-10">
             <hr />
             {total > 0 && (
-              <div className="flex justify-between py-8">
+              <div className="flex justify-between pt-8">
                 <p className="inline-block">Total:</p>
                 <p className="inline-block">{`₹ ${total}`}</p>
               </div>
             )}
           </div>
-          <div className="flex justify-end py-2">
+          <div className="flex justify-end">
             <button onClick={() => reset()} className="underline">
               Clear All
             </button>
           </div>
 
-          <div className="flex w-full flex-col items-center justify-center gap-4">
+    <div className="order-info bg-white rounded-md p-4 mt-4 shadow-sm flex justify-between items-center">
+      <div className="space-y-6">
+        {/* Order Type Buttons */}
+        <div className="space-y-2">
+          <label className="font-semibold text-2xl">Order Type</label>
+          <div className="flex gap-2">
+            {orderTypes.map((type) => (
+              <button
+                key={type}
+                onClick={() => setOrderType(type)}
+                className={
+                  orderType === type
+                    ? "bg-[#d6651f] hover:bg-[#d6651fed] text-white px-4 py-2 rounded-md"
+                    : "bg-gray-100 hover:bg-gray-200 text-gray-700 border-gray-300 px-4 py-2 rounded-md"
+                }
+              >
+                {type}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Payment Status Buttons */}
+        <div className="space-y-2">
+          <label className="font-semibold text-sm">Payment Status:</label>
+          <div className="flex gap-2">
+            {paymentStatuses.map((status) => (
+              <button
+                key={status}
+                onClick={() => setPaymentStatus(status)}
+                className={
+                  paymentStatus === status
+                     ? "bg-[#d6651f] hover:bg-[#d6651fed] text-white px-4 py-2 rounded-md"
+                    : "bg-gray-100 hover:bg-gray-200 text-gray-700 border-gray-300 px-4 py-2 rounded-md"
+                }
+              >
+                {status}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Payment Mode Buttons */}
+        <div className="space-y-2">
+          <label className="font-semibold text-sm">Payment Mode:</label>
+          <div className="flex gap-2">
+            {paymentModes.map((mode) => (
+              <button
+                key={mode}
+                // variant={paymentMode === mode ? "default" : "outline"}
+                // size="sm"
+                onClick={() => setPaymentMode(mode)}
+                className={
+                  paymentMode === mode
+                    ? "bg-[#d6651f] hover:bg-[#d6651fed] text-white px-4 py-2 rounded-md"
+                    : "bg-gray-100 hover:bg-gray-200 text-gray-700 border-gray-300 px-4 py-2 rounded-md"
+                }
+              >
+                {mode}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+    <div className="pt-4  text-lg">
+          <p className="text-center text-2xl pb-3">
+            <>Order Overview</>
+          </p>
+          <p >
+            Order Type: 
+            <span className="text-primary">{" "}{orderType}</span>
+          </p>
+          <p>Payment Status: <span className="text-primary">{" "}{paymentStatus}</span></p>
+          <p>Payment Mode:  <span className="text-primary"> {" "}{paymentMode}</span></p>
+    </div>
+      </div>
+    </div>
+
+
+          <div className="flex w-full flex-col items-center justify-center gap-4 pt-8">
             <button
               disabled={!isItem.length || isLoading}
               onClick={() => printHandler()}
@@ -264,7 +354,6 @@ export function Billing() {
               Save and Don't Print
             </button>
           </div>
-        </div>
         <div className=""></div>
         <div></div>
       </>
@@ -278,5 +367,4 @@ export function Billing() {
     </>
 }     
 </div>
-)
-}
+)}
