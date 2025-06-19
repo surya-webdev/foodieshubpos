@@ -292,27 +292,7 @@ export function Billing() {
           </div>
         </div>
 
-        {/* Payment Mode Buttons */}
-        <div className="space-y-2">
-          <label className="font-semibold text-sm">Payment Mode:</label>
-          <div className="flex gap-2">
-            {paymentModes.map((mode) => (
-              <button
-                key={mode}
-                // variant={paymentMode === mode ? "default" : "outline"}
-                // size="sm"
-                onClick={() => setPaymentMode(mode)}
-                className={
-                  paymentMode === mode
-                    ? "bg-[#d6651f] hover:bg-[#d6651fed] text-white px-4 py-2 rounded-md"
-                    : "bg-gray-100 hover:bg-gray-200 text-gray-700 border-gray-300 px-4 py-2 rounded-md"
-                }
-              >
-                {mode}
-              </button>
-            ))}
-          </div>
-        </div>
+       
       </div>
     <div className="pt-4  text-lg">
           <p className="text-center text-2xl pb-3">
@@ -323,7 +303,7 @@ export function Billing() {
             <span className="text-primary">{" "}{orderType}</span>
           </p>
           <p>Payment Status: <span className="text-primary">{" "}{paymentStatus}</span></p>
-          <p>Payment Mode:  <span className="text-primary"> {" "}{paymentMode}</span></p>
+         
     </div>
       </div>
     </div>
