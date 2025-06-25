@@ -15,12 +15,12 @@ import { GiChickenLeg } from "react-icons/gi";
 import { TbBowlSpoonFilled } from "react-icons/tb";
 import { GiChickenOven } from "react-icons/gi";
 import { GiSlicedBread } from "react-icons/gi";
-
-
+import { MdOutlineFreeBreakfast } from "react-icons/md";
 import { TbSoupFilled } from "react-icons/tb";
 import { logout } from "../lib/actions";
 
 const navList = [
+  {id:0, icon:<MdOutlineFreeBreakfast />, name:"Tiffin" , link:"/food/tiffin"},
   {id:1, icon:<TbSoupFilled/>, name:"Soup" , link:"/food/soups"},
   {id:2, icon:<MdStart/>, name:"Starter" , link:"/food/starters"},
   {id:3, icon:<GiHotSpices/>, name:"Rice & Noodles" , link:"/food/main"},

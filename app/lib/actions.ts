@@ -2,10 +2,23 @@
 
 import { endOfDay, startOfDay, subDays } from "date-fns";
 
+import { cookies } from "next/headers";
 import { itemTypes, monthKey, topSelling } from "../types";
 import prisma from "./db";
-import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
+
+
+export async function getTiffin() {
+  try {
+    const data = await prisma.tiffin.findMany();
+
+    if (!data) throw new Error("NO DATA");
+
+    return data;
+  } catch (err) {
+    console.error("error", err);
+  }
+}
+
 
 export async function getStarter() {
   try {
