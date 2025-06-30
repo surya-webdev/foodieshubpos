@@ -104,7 +104,7 @@ export function SideNavigation() {
 
         <div className="w-full rounded-lg px-4 py-2 text-[1.2rem] justify-self-end self-center hover:bg-sec duration-75 ease-in-out transition-all">
             <button
-            disabled={isLoading}
+             disabled={isLoading}
               onClick={()=>handler()}
               className="flex items-center justify-between gap-4 rounded-lg px-2 py-1 text-red-500 transition-all"
             >

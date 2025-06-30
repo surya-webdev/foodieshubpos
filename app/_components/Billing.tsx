@@ -18,7 +18,10 @@ export function Billing() {
 
   const { isItem, removeItem, resetItem } = useItem();  
   const [isLoading , setIsLoading] = useState<boolean>(false)
-
+  const [isLoading1 , setIsLoading1] = useState<boolean>(false)
+  const [isLoading2 , setIsLoading2] = useState<boolean>(false)
+  const [isLoading3 , setIsLoading3] = useState<boolean>(false)
+  
   const [orderType, setOrderType] = useState("Parcel")
   const [paymentStatus, setPaymentStatus] = useState("Paid")
   const [paymentMode, setPaymentMode] = useState("UPI")
@@ -40,7 +43,9 @@ export function Billing() {
 
   async function printHandler() {
   
-    setIsLoading(true)
+    setIsLoading(true);
+    setIsLoading1(true);
+
     if (isItem.length === 0 && !total) {
       return;
     }
@@ -106,14 +111,16 @@ export function Billing() {
                    },
                  );
     }finally{
-      setIsLoading(false)
+      setIsLoading(false);
+      setIsLoading1(false);
     }
   }
 
   async function saveHandler() {
     
     setIsLoading(true);
-
+    setIsLoading3(true);
+    
     if (isItem.length === 0 && !total) {
       return;
     }
@@ -163,13 +170,14 @@ export function Billing() {
                    },
                  );
     }finally{
-      setIsLoading(false)
+      setIsLoading(false);
+      setIsLoading3(false);
     }
     }
 
   async function kitchenHandler() {
     setIsLoading(true);
-    
+    setIsLoading2(true);
     if (isItem.length === 0) {
       return;
     }
@@ -193,7 +201,8 @@ export function Billing() {
                    }
     );
     }finally{
-      setIsLoading(false)
+      setIsLoading(false);
+      setIsLoading2(false);
     }
   }
 
@@ -237,7 +246,7 @@ export function Billing() {
           ))}
           <div className="my-10">
             <hr />
-            {total > 0 && (
+            {(total > 0) && (
               <div className="flex justify-between pt-8">
                 <p className="inline-block">Total:</p>
                 <p className="inline-block">{`₹ ${total}`}</p>
@@ -311,11 +320,11 @@ export function Billing() {
 
           <div className="flex w-full flex-col items-center justify-center gap-4 pt-8">
             <button
-              disabled={!isItem.length || isLoading}
+              disabled={(!isItem.length )|| (isLoading)|| (isLoading1)}
               onClick={() => printHandler()}
               className="w-full rounded-lg bg-[#d6651f] px-8 text-lg font-bold text-black"
             >
-              Print
+              {isLoading1 ? "processing..." : "Print"}
             </button>
             <p>(or)</p>
             <button
@@ -323,15 +332,15 @@ export function Billing() {
               onClick={() => kitchenHandler()}
               className="w-full rounded-lg bg-[#d6651f] px-8 text-lg font-bold text-black"
               >
-              Kitchen Order
+             {isLoading2 ? "processing..." :  "Kitchen Order"}
             </button>
             <p>(or)</p>
             <button
-              disabled={!isItem.length || isLoading}
+              disabled={!isItem.length || isLoading || isLoading3}
               onClick={() => saveHandler()}
               className="w-full rounded-lg bg-[#d6651f] px-8 text-lg font-bold text-black"
             >
-              Save and Don't Print
+               {isLoading3 ? "processing..." : "Save and Don't Print"}
             </button>
           </div>
         <div className=""></div>

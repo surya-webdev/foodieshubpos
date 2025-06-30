@@ -22,6 +22,7 @@ const [sortedData , setSorteddata] = useState<topSelling[]>([])
 
 async function handler(){
   const responseTotalSale : {totalRevenue:number ,topSelling:topSelling[]}  = (await getTotalSale()) || {totalRevenue:0 ,topSelling:[]};
+//  console.log(responseTotalSale?.topSelling);
   setSorteddata(responseTotalSale?.topSelling.slice(0,10));
 }
 

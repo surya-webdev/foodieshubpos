@@ -124,7 +124,7 @@ const today = new Date();
 const formattedDate = today.toISOString().split("T")[0];
 
 export async function getSale() {
-
+  
   try{
     const res = await prisma.dashboard.findMany({
       where: {
