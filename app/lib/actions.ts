@@ -256,7 +256,7 @@ export async function getThirtyDaySales(days: number = 30) {
   try {
     const startDate = startOfDay(subDays(today, days - 1));
     const endDate = endOfDay(today);
-    console.log(startDate,endDate)
+    // console.log(startDate,endDate)
     
     const result = await prisma.dashboard.findMany({
       where: {

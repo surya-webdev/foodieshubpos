@@ -1,13 +1,8 @@
-// "use client";
-
 import { MenuLayout } from "@/app/_components/MenuLayout";
-import { getBbqCourse, getMainCourse } from "@/app/lib/actions";
-import { itemTypes } from "@/app/types";
+import { getBbqCourse } from "@/app/lib/actions";
 
 export default async function Page() {
   const res = await getBbqCourse();
- 
-
   return (
     <aside className="px-4 py-2">
       <div className="flex flex-col py-8">

@@ -20,7 +20,7 @@ const context = createContext<itemTypes>(defaultContext);
 export function SaleContext({children}:{children:React.ReactNode}){
 
   const [saleData , setSaleData] = useState<monthKey[]>([]);
-console.log(saleData)
+
   function addItem(item:monthKey){
     if(!item) return;
     setSaleData((prevItem) => [...prevItem ,item]);
@@ -39,3 +39,5 @@ export function useSale(){
 
   return contexts
 }
+
+

@@ -17,6 +17,7 @@ import { GiChickenOven } from "react-icons/gi";
 import { GiSlicedBread } from "react-icons/gi";
 import { MdOutlineFreeBreakfast } from "react-icons/md";
 import { TbSoupFilled } from "react-icons/tb";
+import { BsLightningChargeFill } from "react-icons/bs";
 import { logout } from "../lib/actions";
 
 const navList = [
@@ -24,12 +25,13 @@ const navList = [
   {id:1, icon:<TbSoupFilled/>, name:"Soup" , link:"/food/soups"},
   {id:2, icon:<MdStart/>, name:"Starter" , link:"/food/starters"},
   {id:3, icon:<GiHotSpices/>, name:"Rice & Noodles" , link:"/food/main"},
-  {id:6, icon:<TbBowlSpoonFilled />, name:"Gravy" , link:"/food/gravy"},
-  {id:6, icon:<GiChickenOven />, name:"Biriyani" , link:"/food/biriyani"},
+  {id:4, icon:<TbBowlSpoonFilled />, name:"Gravy" , link:"/food/gravy"},
+  {id:5, icon:<GiChickenOven />, name:"Biriyani" , link:"/food/biriyani"},
   {id:6, icon:<GiSlicedBread />, name:"Breads" , link:"/food/breads"},
-  {id:6, icon:<GiChickenLeg />, name:"BBQ" , link:"/food/bbq"},
-  {id:4, icon:<MdAnalytics/>, name:"Dashboard" , link:"/dashboard"},
-  {id:5, icon:<FaUserAlt/>, name:"User" , link:"/"},
+  {id:7, icon:<GiChickenLeg />, name:"BBQ" , link:"/food/bbq"},
+  {id:9, icon:<BsLightningChargeFill />, name:"Add-On" , link:"/food/addon"},
+  {id:10, icon:<MdAnalytics/>, name:"Dashboard" , link:"/dashboard"},
+  {id:11, icon:<FaUserAlt/>, name:"User" , link:"/"},
 ];
 
 
@@ -57,7 +59,7 @@ export function SideNavigation() {
 }
 
   return (
-    <aside className="fixed flex h-screen w-[16rem] flex-col rounded-lg border border-[#dcdcdc] text-black bg-[#ffffff] px-2 py-10">
+    <aside className="fixed flex h-full w-[16rem] flex-col rounded-lg border border-[#dcdcdc] text-black bg-[#ffffff] px-2 overflow-y-scroll ">
       <div className="flex items-center justify-center">
         <Image src="/logo.png" width={100} height={100} alt="logo" />
         <Link href="/" className="blog text-primary text-lg font-bold">
