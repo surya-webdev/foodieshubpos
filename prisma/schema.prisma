@@ -49,22 +49,21 @@ model user {
 
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
 model dashboard {
-  id         String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  created_at DateTime  @default(now()) @db.Timestamptz(6)
+  id         String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  created_at DateTime @default(now()) @db.Timestamptz(6)
   day        DateTime @default(now()) @db.Date
   sale       Float    @db.Real
   typedish   String   @default("")
   quantity   Float    @default(1)
 }
 
-
 model bbq {
-  id         BigInt   @id @default(autoincrement())
   created_at DateTime @default(now()) @db.Timestamptz(6)
-  name       String?
-  type       String?  @default("veg")
   typedish   String?
+  name       String?
   price      Float?   @db.Real
+  type       String?  @default("veg")
+  id         BigInt   @id @default(autoincrement())
 }
 
 model bread {
@@ -94,7 +93,6 @@ model gravy {
   price      Float?   @db.Real
 }
 
-
 model tiffin {
   id         BigInt   @id @default(autoincrement())
   created_at DateTime @default(now()) @db.Timestamptz(6)
@@ -105,9 +103,16 @@ model tiffin {
 }
 
 
-
-model order{
-  id         String       @id @default(uuid())
-  order      Int          @default(0)
+model frequent {
+  id         BigInt   @id @default(autoincrement())
+  created_at DateTime @default(now()) @db.Timestamptz(6)
+  name       String?
+  type       String?  @default("veg")
+  typedish   String?
+  price      Float?   @db.Real
 }
 
+model order {
+  id    String @id @default(uuid())
+  order Int    @default(0)
+}

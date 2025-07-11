@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 
 
 export function Sale() {
+  
   const [totalSaleData, setTotalSaleData] = useState<{
     totalRevenue: number;
     topSelling: topSelling[];

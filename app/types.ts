@@ -1,3 +1,13 @@
+export type itemMenu = {
+  id: string;
+  created_at: Date;
+  type: string;
+  typedish: string;
+  price: number;
+  name: string;
+};
+
+
 export type itemTypes = {
   id: string;
   created_at: Date;

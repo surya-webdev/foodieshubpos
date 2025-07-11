@@ -18,9 +18,11 @@ import { GiSlicedBread } from "react-icons/gi";
 import { MdOutlineFreeBreakfast } from "react-icons/md";
 import { TbSoupFilled } from "react-icons/tb";
 import { BsLightningChargeFill } from "react-icons/bs";
+import { FaFreeCodeCamp } from "react-icons/fa";
 import { logout } from "../lib/actions";
 
 const navList = [
+  {id:12, icon:<FaFreeCodeCamp />, name:"Frequent" , link:"/food/frequent"},
   {id:0, icon:<MdOutlineFreeBreakfast />, name:"Tiffin" , link:"/food/tiffin"},
   {id:1, icon:<TbSoupFilled/>, name:"Soup" , link:"/food/soups"},
   {id:2, icon:<MdStart/>, name:"Starter" , link:"/food/starters"},
@@ -61,15 +63,15 @@ export function SideNavigation() {
   return (
     <aside className="fixed flex h-full w-[16rem] flex-col rounded-lg border border-[#dcdcdc] text-black bg-[#ffffff] px-2 overflow-y-scroll ">
       <div className="flex items-center justify-center">
-        <Image src="/logo.png" width={100} height={100} alt="logo" />
-        <Link href="/" className="blog text-primary text-lg font-bold">
+        <Image src="/logo.png" width={80} height={80} alt="logo" />
+        <Link href="/" className="blog text-[#de432f] text-[1rem] font-bold">
         Murugan Hotel
        </Link>
       </div>
 
       <ul className="flex flex-col h-full gap-2 transition-all duration-75 ease-in-out">
         {/*  */}
-        <li className="rounded-lg px-4 py-2 text-[1.4rem] font-medium">
+        <li className="rounded-lg px-4 py-2 text-[1.2rem] font-medium">
           <Link
             onClick={() => setIsOpen(() => !isOpen)}
             className={` ${pathname === '/' ? 'bg-sec' : ''} flex items-center justify-between gap-4 rounded-lg px-2 py-1 text-[#000000] hover:bg-sec`}

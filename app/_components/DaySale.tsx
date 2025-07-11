@@ -22,7 +22,7 @@ const [sortedData , setSorteddata] = useState<topSelling[]>([])
 
 async function handler(){
   const responseTotalSale : {totalRevenue:number ,topSelling:topSelling[]}  = (await getTotalSale()) || {totalRevenue:0 ,topSelling:[]};
-//  console.log(responseTotalSale?.topSelling);
+ console.dir(responseTotalSale);
   setSorteddata(responseTotalSale?.topSelling.slice(0,10));
 }
 
@@ -59,7 +59,6 @@ useEffect(()=>{
 
   return (
     <>
-    {/* h-[90rem] */}
     <main className="w-full h-[90rem] grid grid-cols-1 justify-between items-center">
        <DayGraph/>
     <aside className="w-full h-full flex flex-col justify-between items-center">

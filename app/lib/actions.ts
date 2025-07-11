@@ -71,6 +71,18 @@ export async function getBiriyani() {
   }
 }
 
+export async function getFrequent() {
+  
+  try {
+    const data = await prisma.frequent.findMany();
+
+    if (!data) throw new Error("NO DATA");
+    return data;
+  } catch (err) {
+    console.error("error", err);
+  }
+}
+
 export async function getBreads() {
   
   try {
