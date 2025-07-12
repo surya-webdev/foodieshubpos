@@ -13,7 +13,7 @@ export function MenuLayout(props: { item: itemTypes }) {
     <div className="flex h-[8rem] flex-col justify-between gap-2 rounded-md bg-slate-200 px-2 py-6">
       <div className="text-md flex justify-between gap-4">
         <div>
-          <p className="capitalize">{name}</p>
+          <p className="capitalize font-bold">{name}</p>
         </div>
         <div>
           <p className="font-semibold">{price}</p>
