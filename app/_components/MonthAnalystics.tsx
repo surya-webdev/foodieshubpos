@@ -1,6 +1,8 @@
 "use client"
 
 import { useEffect, useState } from "react";
+import { usePathname } from 'next/navigation'
+
 import { IoIosRocket } from "react-icons/io";
 import {
   Area,
@@ -26,6 +28,7 @@ export function MonthAnalystics(){
 const [isData , setIsData] = useState<monthKey[]>([])
 const [isLoading, setIsLoading] = useState<boolean>(false);
 const [isMonth , setIsMonth] = useState<number>(120);
+  const pathname = usePathname()
 
   async function handler() {
     try {
@@ -51,20 +54,20 @@ const [isMonth , setIsMonth] = useState<number>(120);
     return <Loader />;
   }
 
-  if(isData?.length == 0 || !isData ) return <div className="w-full h-full flex justify-center items-center font-bold text-2xl my-5">Sale is not started yet!!</div>
+  if(isData?.length == 0 || !isData ) return <div className="w-full h-full flex justify-center items-center font-bold text-2xl my-5 bg-white p-5 rounded-md shadow-md">Sale is not started yet!!</div>
 
   return (
     <>
-        <div className="w-full h-full bg-white p-5 rounded-md shadow-md">
+        <div className="w-full bg-white p-5 rounded-md shadow-md flex flex-col">
           <div className="flex justify-center items-center gap-2 font-bold text-2xl my-5">
             <p>Monthly Sales</p>
             <p><IoIosRocket/></p>
             </div>
-            <div className="flex gap-2">
-              <button onClick={()=>setIsMonth(30)} className="bg-main">30 Days</button>
-              <button onClick={()=>setIsMonth(60)} className="bg-main">60 Days</button>
-              <button onClick={()=>setIsMonth(90)} className="bg-main">90 Days</button>
-              <button onClick={()=>setIsMonth(120)} className="bg-main">120 Days</button>
+            <div className="flex gap-2 my-4 self-end">
+              <button onClick={()=>setIsMonth(30)} className="bg-primary px-2 text-white rounded-sm">30 Days </button>
+              <button onClick={()=>setIsMonth(60)} className="bg-primary px-2 text-white rounded-sm">60 Days</button>
+              <button onClick={()=>setIsMonth(90)} className="bg-primary px-2 text-white rounded-sm">90 Days</button>
+              <button onClick={()=>setIsMonth(120)} className="bg-primary px-2 text-white rounded-sm">120 Days</button>
             </div>
           <ComposedChart width={1400} height={500} data={isData}>
            <XAxis dataKey="month" />
@@ -74,7 +77,7 @@ const [isMonth , setIsMonth] = useState<number>(120);
            <CartesianGrid stroke="#f5f5f5" />
             <Area type="monotone" name="Dish" dataKey="typedish" fill="#8884d8" stroke="#8884d8" />
             <Area type="monotone" name="Quantity" dataKey="quantity" fill="#000000" stroke="#000000" />
-            <Bar   name="Sales" dataKey="totalSales" barSize={20} fill="#413ea0" />
+            <Bar   name="Sales" dataKey="totalSales" barSize={40} fill="#ff6600" />
            <Line type="monotone" name="Sales" dataKey="sale" stroke="#ff7300" />
           </ComposedChart>
         </div>

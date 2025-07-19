@@ -50,14 +50,14 @@ const [isLoading, setIsLoading] = useState<boolean>(false);
     return <Loader />;
   }
 
-  if(isData?.length == 0 || !isData ) return <div className="w-full h-full flex justify-center items-center font-bold text-2xl my-5">Sale is not started yet!!</div>
+  if(isData?.length == 0 || !isData ) return <div className="w-full h-full flex justify-center items-center font-bold text-2xl my-5 bg-white p-5 rounded-md shadow-md">Sale is not started yet!!</div>
 
   return (
     <>
   
         <div >
         </div>
-        <div className="w-full h-full bg-white p-5 rounded-md shadow-md">
+        <div className="w-full bg-white p-5 rounded-md shadow-md">
           <div className="flex justify-center items-center gap-2 font-bold text-2xl my-5">
             <p>Weekly Sales</p>
             <p><IoIosRocket/></p>
@@ -71,7 +71,7 @@ const [isLoading, setIsLoading] = useState<boolean>(false);
            <CartesianGrid stroke="#f5f5f5" />
             <Area type="monotone" name="Dish" dataKey="typedish" fill="#8884d8" stroke="#8884d8" />
             <Area type="monotone" name="Quantity" dataKey="quantity" fill="#000000" stroke="#000000" />
-            <Bar  name="Sales" dataKey="totalSales" barSize={20} fill="#413ea0" />
+            <Bar  name="Sales" dataKey="totalSales"  barSize={40} fill="#ff6600" />
            <Line type="monotone" name="Sales" dataKey="sale" stroke="#ff7300" />
           </ComposedChart>
         </div>
