@@ -57,13 +57,13 @@ const [isLoading, setIsLoading] = useState<boolean>(false);
   
         <div >
         </div>
-        <div className="w-full">
+        <div className="w-full h-full bg-white p-5 rounded-md shadow-md">
           <div className="flex justify-center items-center gap-2 font-bold text-2xl my-5">
             <p>Weekly Sales</p>
             <p><IoIosRocket/></p>
             </div>
            
-          <ComposedChart width={1000} height={500} data={isData}>
+          <ComposedChart  width={1400} height={500} data={isData}>
            <XAxis dataKey="month" />
            <YAxis dataKey='totalSales' />
            <Tooltip />

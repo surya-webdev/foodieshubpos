@@ -55,9 +55,7 @@ const [isMonth , setIsMonth] = useState<number>(120);
 
   return (
     <>
-  
-
-        <div className="w-full">
+        <div className="w-full h-full bg-white p-5 rounded-md shadow-md">
           <div className="flex justify-center items-center gap-2 font-bold text-2xl my-5">
             <p>Monthly Sales</p>
             <p><IoIosRocket/></p>
@@ -68,7 +66,7 @@ const [isMonth , setIsMonth] = useState<number>(120);
               <button onClick={()=>setIsMonth(90)} className="bg-main">90 Days</button>
               <button onClick={()=>setIsMonth(120)} className="bg-main">120 Days</button>
             </div>
-          <ComposedChart width={1000} height={500} data={isData}>
+          <ComposedChart width={1400} height={500} data={isData}>
            <XAxis dataKey="month" />
            <YAxis dataKey='totalSales' />
            <Tooltip />

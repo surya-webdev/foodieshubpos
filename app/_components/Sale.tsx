@@ -2,6 +2,9 @@
 
 import { FaMoneyBills } from "react-icons/fa6";
 import { SiMoneygram } from "react-icons/si";
+import { TbMoneybag } from "react-icons/tb";
+import { RiMoneyRupeeCircleFill } from "react-icons/ri";
+import { TbZoomMoneyFilled } from "react-icons/tb";
 import { getSale, getTotalSale } from "../lib/actions";
 import { Total } from "./Total";
 import { dayResponse, topSelling } from "../types";
@@ -53,19 +56,19 @@ export function Sale() {
   return (
     <div className="grid grid-cols-3 items-center gap-4 py-6 text-xl font-bold">
     <Total sale={formatAmount(daySale)} type="Day Revenue">
-     <SiMoneygram className="text-[3rem] text-[#0369a1]" />
+     <SiMoneygram  />
     </Total>
     <Total sale={String(dayOrder)} type="Day Order">
-     <SiMoneygram className="text-[3rem] text-[#0369a1]" />
+     <TbMoneybag />
     </Total>
     <Total sale={String(totalOrder)} type="Total Order">
-     <SiMoneygram className="text-[3rem] text-[#0369a1]" />
+     <RiMoneyRupeeCircleFill />
     </Total>
     <Total sale={formatAmount(totalSale)} type="Weekly Revenue">
-      <FaMoneyBills className="text-[3rem] text-[#4338ca]" />
+     <TbZoomMoneyFilled />
     </Total>
     <Total sale={formatAmount(totalSale)} type="Total Revenue">
-      <FaMoneyBills className="text-[3rem] text-[#4338ca]" />
+      <FaMoneyBills />
     </Total>
     </div>
   );

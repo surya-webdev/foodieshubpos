@@ -40,12 +40,12 @@ useEffect(()=>{
     { name: 'Lemon Coriander Soup', value: 200 },
   ];
   
-  const COLORS = ['#0088FE' , '#ef4444', '#84cc16', '#22c55e', '#14b8a6', "##a855f7" , '#00C49F', '#FFBB28', '#FF8042'];
+  const COLORS = ['#77BEF0' , '#FFCB61', '#0D5EA6' ,'#FF4F0F', '#FF894F', '#22c55e', '#14b8a6', "##a855f7" , '#00C49F', '#EA5B6F', '#EAD8A4', ];
   
   const RADIAN = Math.PI / 180;
   // @ts-ignore
   const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }) => {
-    const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+    const radius = innerRadius + (outerRadius - innerRadius) * 0.7;
     const x = cx + radius * Math.cos(-midAngle * RADIAN);
     const y = cy + radius * Math.sin(-midAngle * RADIAN);
   
@@ -62,9 +62,10 @@ useEffect(()=>{
     <main className="w-full h-[90rem] grid grid-cols-1 justify-between items-center">
        <DayGraph/>
     <aside className="w-full h-full flex flex-col justify-between items-center">
-     <div>
+     <div className="mt-8">
       <p className="font-bold text-2xl">Top Selling Item</p>
     </div>  
+    
       <ResponsiveContainer width="100%" height="100%">
         <PieChart width={100} height={100}>
           <Pie
@@ -91,6 +92,7 @@ useEffect(()=>{
             />
         </PieChart>
       </ResponsiveContainer>  
+    
     </aside>
  </main>
     </>

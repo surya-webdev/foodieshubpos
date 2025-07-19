@@ -63,37 +63,16 @@ export function DayGraph(){
       return <Loader />;
     }
   
-    if(!isData.length) return <div className="w-full h-full flex justify-center items-center font-bold text-2xl my-5">Sale is not started yet!!</div>
-  
+    if(!isData.length) return <div className="w-full flex justify-center items-center font-bold text-2xl my-5">Sale is not started yet!!</div>
+  // h-[90rem]
 // console.log(isData)
   return <>
-   <aside className="flex flex-col justify-center items-center w-full h-full">
+   <aside className="flex flex-col justify-center items-center w-full h-full gap-4">
             <article className="flex justify-center items-center gap-2 font-bold text-2xl my-5">
               <p>Today Sale</p>
               <p><IoIosRocket/></p>
             </article>  
-            <div>
-          {/* <ResponsiveContainer width="100%" height="100%">
-          <AreaChart
-            width={700} 
-            height={500} 
-            data={isData}
-            syncId="sale"
-            margin={{
-              top: 10,
-              right: 30,
-              left: 0,
-              bottom: 0,
-            }}
-          >
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="" />
-            <YAxis dataKey='day'  />
-            <Tooltip />
-            <Area type="monotone" dataKey="sale" stroke="#82ca9d" fill="#82ca9d" />
-          </AreaChart>
-        </ResponsiveContainer> */}
-
+            <div className="bg-white p-6 rounded-md">
             <ComposedChart width={1000} height={500} data={isData}>
              <XAxis label={""} dataKey="day" />
              <YAxis dataKey='sale' />
@@ -101,11 +80,11 @@ export function DayGraph(){
              <Legend />
              <CartesianGrid stroke="#f5f5f5" />
               <Area type="monotone" name="Dish"  dataKey="typedish" fill="#8884d8" stroke="#8884d8" />
-              <Area type="monotone" name="Order" dataKey="quantity" fill="#000000" stroke="#000000" />
+              {/* <Area type="monotone" name="Order" dataKey="quantity" fill="#000000" stroke="#000000" /> */}
              <Line type="monotone" name="Sales" dataKey="sale" stroke="#ff7300" />
             </ComposedChart>
            </div>
-          </aside>
+  </aside>
   </>
 }
 {/* <Bar  name="Sales" dataKey="sale" barSize={20} fill="#413ea0" /> */}

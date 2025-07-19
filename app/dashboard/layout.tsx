@@ -12,11 +12,11 @@ export default function RootLayout({
 }) {
   return (
     <SaleContext>
-    <div className="grid grid-cols-[16rem_1fr] ">
+    <div className="grid grid-cols-[16rem_1fr]">
       <div>
         <SideNavigation></SideNavigation>
       </div>
-      <div className="flex flex-col gap-10 p-10 w-full h-screen bg-white overflow-x-hidden overflow-y-scroll">
+      <div className="flex flex-col gap-10 p-10 w-full h-screen bg-[#ffe0cc31] overflow-x-hidden overflow-y-scroll">
         <Sale></Sale>
         {children}
       </div>
