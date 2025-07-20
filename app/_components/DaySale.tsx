@@ -59,10 +59,9 @@ useEffect(()=>{
 
   return (
     <>
-    <main className="w-full h-[90rem] grid grid-cols-1 gap-6 justify-between items-center  bg-white p-5 rounded-md shadow-md">
+    <main className="w-full h-full grid grid-cols-1 gap-6 justify-between items-center  bg-white p-5 rounded-md shadow-md">
        <DayGraph/>
-
-    <aside className="w-full h-full flex flex-col justify-between items-center">
+    <aside className="w-full h-[55rem] flex flex-col justify-between items-center">
         <div className="mt-8">
            <p className="font-bold text-2xl">Top Selling Item</p>
         </div>  

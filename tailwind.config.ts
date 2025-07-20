@@ -16,6 +16,7 @@ const config: Config = {
         primary: "var(--background)",
         sec:"var(--sec)",
         foreground: "var(--foreground)",
+        main:"var(--secondary)"
       },
     },
   },

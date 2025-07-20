@@ -3,6 +3,7 @@
 
 import axios from "axios";
 import { GiEmptyHourglass } from "react-icons/gi";
+import { IoCartOutline } from "react-icons/io5";
 import { TiDelete } from "react-icons/ti";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -208,11 +209,16 @@ export function Billing() {
 
  return (
 
-  <div className="flex flex-col justify-between px-4 py-6 font-bold overflow-y-scroll">
+  <div className="flex flex-col justify-between px-4 py-6 font-semibold overflow-y-scroll">
      {isItem.length > 0  ?
      <>
         <div>
-          <div className="flex justify-between py-4 text-2xl text-[#d6651f]">
+          <div className="flex gap-2 justify-center text-2xl">
+            <p className="text-primary text-3xl"><IoCartOutline /></p>
+            <p className="font-medium">Order Summary</p>
+          </div>
+            <div className="w-full border-primary border-spacing-1 border my-4"></div>
+          <div className="flex justify-between py-4 text-2xl text-[#d6651f] font-semibold">
             <p>Food</p>
             <p className="translate-x-8">Quantity</p>
             <p>Price</p>
@@ -248,8 +254,8 @@ export function Billing() {
             <hr />
             {(total > 0) && (
               <div className="flex justify-between pt-8">
-                <p className="inline-block">Total:</p>
-                <p className="inline-block">{`₹ ${total}`}</p>
+                <p className="inline-block text-2xl">Total:</p>
+                <p className="inline-block text-2xl">{`₹ ${total}`}</p>
               </div>
             )}
           </div>

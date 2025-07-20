@@ -55,18 +55,18 @@ function MenuLayout(props: { item: itemTypes }) {
         >
           Add
         </button>
-        <div className="flex items-center justify-center gap-1">
+        <div className="flex items-center justify-center gap-2">
           <button
             onClick={() => setIsQuantity(isQuantity <= 5 ? 5 : isQuantity - 5)}
-            className="h-[2rem] w-[2rem] rounded-full bg-slate-200 font-normal text-black"
+            className="h-[2rem] w-[2rem] rounded-full hover:bg-white bg-slate-100 transition-all  px-1 text-sm font-normal text-black"
           >
             -
           </button>
-          <p className="inline-block">{isQuantity}</p>
+          <p className="inline-block transition-all">{isQuantity}</p>
 
           <button
             onClick={() => setIsQuantity(isQuantity + 5)}
-            className="h-[2rem] w-[2rem] rounded-full bg-slate-200 px-1 text-sm font-normal text-black"
+            className="h-[2rem] w-[2rem] rounded-full hover:bg-white bg-slate-100 transition-all  px-1 text-sm font-normal text-black"
           >
             +
           </button>

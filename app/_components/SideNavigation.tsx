@@ -19,6 +19,8 @@ import { MdOutlineFreeBreakfast } from "react-icons/md";
 import { TbSoupFilled } from "react-icons/tb";
 import { BsLightningChargeFill } from "react-icons/bs";
 import { FaFreeCodeCamp } from "react-icons/fa";
+import { PiChefHatBold } from "react-icons/pi";
+
 import { logout } from "../lib/actions";
 
 const navList = [
@@ -62,13 +64,20 @@ export function SideNavigation() {
 
   return (
     <aside className="fixed flex h-full w-[16rem] flex-col rounded-lg border border-[#dcdcdc] text-black bg-[#ffffff] px-2 overflow-y-scroll ">
-      <div className="flex items-center justify-center">
-        <Image src="/logo.png" width={80} height={80} alt="logo" />
-        <Link href="/" className="blog text-[#de432f] text-[1rem] font-bold">
+      <div className="flex gap-2 items-center my-4 justify-center">
+        {/* <Image src="/logo.png" width={80} height={80} alt="logo" /> */}
+        <div className="w-[5rem] h-[4rem] text-[3rem] flex justify-center items-center rounded-md  text-white bg-main">
+          <PiChefHatBold />
+        </div>
+
+        <div>
+        <Link href="/" className="blog text-black text-[1rem] font-bold">
         Murugan Hotel
        </Link>
+       <p className="text-sm text-main">Authentic Cuisine</p>
+        </div>
       </div>
-
+      <div className="w-full border-main border-spacing-1 border my-4"></div>
       <ul className="flex flex-col h-full gap-2 transition-all duration-75 ease-in-out">
         {/*  */}
         <li className="rounded-lg px-4 py-2 text-[1.2rem] font-medium">

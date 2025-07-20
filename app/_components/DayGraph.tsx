@@ -67,7 +67,7 @@ export function DayGraph(){
   // h-[90rem]
 // console.log(isData)
   return <>
-   <aside className="flex flex-col justify-center items-center w-full h-full gap-4">
+   <aside className="flex flex-col justify-center items-center w-full h-[45rem] gap-4">
             <article className="flex justify-center items-center gap-2 font-bold text-2xl my-5">
               <p>Today Sale</p>
               <p><IoIosRocket/></p>
