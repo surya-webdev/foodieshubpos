@@ -150,7 +150,6 @@ export async function getSale() {
       day: item?.day.toLocaleString("en-US",{
         day:"2-digit",
         month:"long",
-        // year:"numeric"
       }),
     };
   })

@@ -50,6 +50,7 @@ const [isLoading, setIsLoading] = useState<boolean>(false);
     return <Loader />;
   }
 
+  console.dir(isData)
   if(isData?.length == 0 || !isData ) return <div className="w-full h-full flex justify-center items-center font-bold text-2xl my-5 bg-white p-5 rounded-md shadow-md">Sale is not started yet!!</div>
 
   return (
