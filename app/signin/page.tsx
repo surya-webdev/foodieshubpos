@@ -69,7 +69,8 @@ export default function Signin() {
         return;
       }
     } catch (error) {
-      console.error("error message", error);
+  console.error("AUTH ERROR:", error); // ← this shows in Vercel logs
+  return Response.json({ message: "failed", error: String(error) }, { status: 500 });
     } finally {
       setIsLoading(false);
     }
