@@ -26,16 +26,16 @@ import { logout } from "../lib/actions";
 const navList = [
   {id:12, icon:<FaFreeCodeCamp />, name:"Frequent" , link:"/food/frequent"},
   {id:0, icon:<MdOutlineFreeBreakfast />, name:"Tiffin" , link:"/food/tiffin"},
-  {id:1, icon:<TbSoupFilled/>, name:"Soup" , link:"/food/soups"},
+ // {id:1, icon:<TbSoupFilled/>, name:"Soup" , link:"/food/soups"},
   {id:2, icon:<MdStart/>, name:"Starter" , link:"/food/starters"},
   {id:3, icon:<GiHotSpices/>, name:"Rice & Noodles" , link:"/food/main"},
   {id:4, icon:<TbBowlSpoonFilled />, name:"Gravy" , link:"/food/gravy"},
   {id:5, icon:<GiChickenOven />, name:"Biriyani" , link:"/food/biriyani"},
-  {id:6, icon:<GiSlicedBread />, name:"Breads" , link:"/food/breads"},
-  {id:7, icon:<GiChickenLeg />, name:"BBQ" , link:"/food/bbq"},
+  //{id:6, icon:<GiSlicedBread />, name:"Breads" , link:"/food/breads"},
+  //{id:7, icon:<GiChickenLeg />, name:"BBQ" , link:"/food/bbq"},
   {id:9, icon:<BsLightningChargeFill />, name:"Add-On" , link:"/food/addon"},
   {id:10, icon:<MdAnalytics/>, name:"Dashboard" , link:"/dashboard"},
-  {id:11, icon:<FaUserAlt/>, name:"User" , link:"/"},
+  //{id:11, icon:<FaUserAlt/>, name:"User" , link:"/"},
 ];
 
 

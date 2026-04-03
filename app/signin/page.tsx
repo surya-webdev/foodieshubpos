@@ -7,7 +7,6 @@ import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
 
 export default function Signin() {
-  //
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [user, setUser] = useState<string>("vicky@gmail.com");
@@ -112,7 +111,7 @@ export default function Signin() {
             type="submit"
             className="my-4 rounded-md bg-[#d6651f] py-1 text-lg font-semibold text-white"
           >
-            {isLoading ? "processing" : "Submit"}
+            {isLoading ? "processing..." : "Submit"}
           </button>
         </form>
       </div>
