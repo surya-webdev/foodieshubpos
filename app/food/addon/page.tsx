@@ -20,8 +20,23 @@ const data = [
     price:5,
     type: 'extra charges',
     typedish: 'extra charges'
+  },
+  {
+    id:3,
+    name: 'Egg',
+    quantity:1,
+    price:10,
+    type: 'extra charges',
+    typedish: 'extra charges'
+  },
+  {
+    id:3,
+    name: 'Extra Parotta',
+    quantity:1,
+    price:20,
+    type: 'extra charges',
+    typedish: 'extra charges'
   }
-
 ]
 
 function MenuLayout(props: { item: itemTypes }) {
